@@ -7,7 +7,21 @@
 
 \begin{defn}（\textbf{范畴}，category）
 
-一个范畴$\mathcal{L}$包括
+一个范畴$\mathcal{C}$包括
+
+\begin{tightenum}
+	\item Ob$(\mathcal{C})$：一些对象（\textbf{Object}）组成的集
+	\item Ar$(\mathcal{C})$：对象之间的态射/箭头（\textbf{Morphism}/\textbf{Arrow}）组成的集\\
+	函数 \textbf{dom} 与 \textbf{cod}：Ar$(\mathcal{C}) \rightarrow$ Ob$(\mathcal{C})$，分别表示一个态射的值域与定义域
+	一个从值域 $A$ 到定义域 $B$ 的态射 $f$ 表示为 $f : A \rightarrow B$，值域 $A$ 与定义域 $B$ 之间的态射集表示为 $\mathcal{C}(A,B)$，称为 \textbf{hom-set}
+	\item 对任意三个对象 $A, B, C$，态射复合
+	\[ \mathcal{C}_{A,B,C} : \mathcal{C}(A,B) \times \mathcal{C}(B,C) \rightarrow \mathcal{C}(A,C)\]
+	态射复合 $\mathcal{C}_{A,B,C}(f,g)$ 记为 $g \circ f$ 或 $f\ ;\ g$，图像化表示为 $A \overset{f}\longrightarrow B \overset{g}\longrightarrow C$
+	\item 对任意一个对象 $\text{id}_A : A \rightarrow A$
+	\item 对于以上定义，对任意态射 $f : A \rightarrow B$，$g : B \rightarrow C$，$h : C \rightarrow D$，符合公理：
+	\[ h \circ (g \circ f) = (h \circ g) \circ f \]
+	\[ f \circ id_A = f = id_B \circ f \]
+\end{tightenum}
 
 \end{defn}
 
