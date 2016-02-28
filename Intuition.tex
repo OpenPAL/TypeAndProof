@@ -1,36 +1,36 @@
-\section{直觉主义命题逻辑}
+\section{ֱ�����������߼�}
 
-直觉主义逻辑又称构造性逻辑，产生于第三次数学危机之后。直觉主义者认为，集合论悖论的出现提醒我们必须根据可信性的要求对整个数学作全面的审查。什么样的概念和方法是可信的呢？他们提出的口号是”存在必须被构造“，就是说，所有的数学概念和方法都必须是构造性的，能够按照可操作的固定的方法，在有限步之内定义和实现。
-
-
-在经典逻辑中，命题的解释是它断言的某种性质的真假意义，即命题的真值；而在直觉主义逻辑中，命题的解释是它断言的某种性质的可构造性。对于公式$A$，$A$的直观含义是``$A$是可构造的''，因此``证明$A$''意味着``构造$A$''。
+ֱ�������߼��ֳƹ������߼��������ڵ�������ѧΣ��֮��ֱ����������Ϊ����������۵ĳ����������Ǳ�����ݿ����Ե�Ҫ���������ѧ��ȫ�����顣ʲô���ĸ���ͷ����ǿ��ŵ��أ���������Ŀں��ǡ����ڱ��뱻���조������˵�����е���ѧ����ͷ����������ǹ����Եģ��ܹ����տɲ����Ĺ̶��ķ����������޲�֮�ڶ����ʵ�֡�
 
 
-直觉主义逻辑和经典逻辑的最大区别是不承认排中律，即不承认$A \lor \neg A$是可构造的。直觉主义逻辑认为，公式$A$意味着``$A$是可构造的''，而公式$(\neg A)$意味着`` `$A$不能被构造' 是可构造的''。也就是说，非``$A$是可构造的''并不等价于对$(\neg A)$的构造，非``$A$是可构造的''仅意味着``$A$不能被构造''这个断言本身，但并没有给出对这个断言的构造。
-
-另外，直觉主义不承认实无穷，只承认有限和潜无穷。按照直觉主义逻辑的观点，因为无穷的构造不可能结束，所以不是实际可构造的。
+�ھ����߼��У�����Ľ����������Ե�ĳ�����ʵ�������壬���������ֵ������ֱ�������߼��У�����Ľ����������Ե�ĳ�����ʵĿɹ����ԡ����ڹ�ʽ$A$��$A$��ֱ�ۺ�����``$A$�ǿɹ����''�����``֤��$A$''��ζ��``����$A$''��
 
 
-\subsection{语法}
+ֱ�������߼��;����߼�����������ǲ����������ɣ���������$A \lor \neg A$�ǿɹ���ġ�ֱ�������߼���Ϊ����ʽ$A$��ζ��``$A$�ǿɹ����''������ʽ$(\neg A)$��ζ��`` `$A$���ܱ�����' �ǿɹ����''��Ҳ����˵����``$A$�ǿɹ����''�����ȼ��ڶ�$(\neg A)$�Ĺ��죬��``$A$�ǿɹ����''����ζ��``$A$���ܱ�����''������Ա���������û�и�����������ԵĹ��졣
 
-本节采用直觉主义逻辑形式系统中，有三个逻辑连接词$\land$，$\to$和$\top$。$\alpha$表示原子命题，$A, B...$是通过语法规则生成的公式。
+���⣬ֱ�����岻����ʵ���ֻ�������޺�Ǳ�������ֱ�������߼��Ĺ۵㣬��Ϊ����Ĺ��첻���ܽ��������Բ���ʵ�ʿɹ���ġ�
+
+
+\subsection{�﷨}
+
+���ڲ���ֱ�������߼���ʽϵͳ�У��������߼����Ӵ�$\land$��$\to$��$\top$��$\alpha$��ʾԭ�����⣬$A, B...$��ͨ���﷨�������ɵĹ�ʽ��
 
 $$A, B ::= \alpha \ | \ A \to B \ | \ A \land B \ | \ \top$$
 
 
 
 
-\subsection{BHK语义}
+\subsection{BHK����}
 
-公式在直觉主义逻辑中是有效（valid）的，当前仅当它对于任何Heting代数上的任何赋值总得到1
+��ʽ��ֱ�������߼�������Ч��valid���ģ���ǰ�����������κ�Heting�����ϵ��κθ�ֵ�ܵõ�1
 
-本节重点关注证明系统，语义部分待补充。。
+�����ص��ע֤��ϵͳ�����岿�ִ����䡣��
 
 
 
-\subsection{自然演绎系统}
+\subsection{��Ȼ����ϵͳ}
 
-请读者回顾经典命题逻辑的自然演绎系统。 公式$A$的证明或者导出(derivation)建立在一系列假设(assumptions)之上。为了方便叙述，我们在这一节引入新的记号，把公式$A$ 的假设记为 $\Gamma = \{A_1, A_2,...,A_n\}$。
+����߻ع˾��������߼�����Ȼ����ϵͳ�� ��ʽ$A$��֤�����ߵ���(derivation)������һϵ�м���(assumptions)֮�ϡ�Ϊ�˷�����������������һ�������µļǺţ��ѹ�ʽ$A$ �ļ����Ϊ $\Gamma = \{A_1, A_2,...,A_n\}$��
 
 \begin{prooftree}
 \AxiomC{$[x_1:A_1,...,x_n:A_n]$}
@@ -38,11 +38,11 @@ $$A, B ::= \alpha \ | \ A \to B \ | \ A \land B \ | \ \top$$
 \UnaryInfC{$A$}
 \end{prooftree}
 
-以上形式的涵义是：基于假设集$\Gamma$（也就是$A_1, A_2,...$）可以导出$A$。值得注意的是，为求方便我们增加了$x_1, x_2...$等符号，它们表示各个假设的`` 名"，或者`` 记号"。导出过程可能使用假设集中的假设零次或者不止一次，某个假设可能会被``消耗''。
+������ʽ�ĺ����ǣ����ڼ��輯$\Gamma$��Ҳ����$A_1, A_2,...$�����Ե���$A$��ֵ��ע����ǣ�Ϊ�󷽱�����������$x_1, x_2...$�ȷ��ţ����Ǳ�ʾ���������`` ��"������`` �Ǻ�"���������̿���ʹ�ü��輯�еļ�����λ��߲�ֹһ�Σ�ĳ��������ܻᱻ``����''��
 
-下面是直觉主义逻辑自然演绎系统的规则。每个逻辑连接词由相应的导入/消去规则刻画。
+������ֱ�������߼���Ȼ����ϵͳ�Ĺ���ÿ���߼����Ӵ�����Ӧ�ĵ���/��ȥ����̻���
 
-1. \textbf{公理}：从假设$A$出发，可以证明$A$。写在规则右边的$x$表示``名"为$x$的假设被使用了。
+1. \textbf{����}���Ӽ���$A$����������֤��$A$��д�ڹ����ұߵ�$x$��ʾ``��"Ϊ$x$�ļ��豻ʹ���ˡ�
 
 \begin{prooftree}
   \AxiomC{$[x:A]$}
@@ -53,7 +53,7 @@ $$A, B ::= \alpha \ | \ A \to B \ | \ A \land B \ | \ \top$$
 
 \end{prooftree}
 
-2. \textbf{$\land$引入}：如果基于$\Gamma$分别可以证明$A$和$B$，则可以证得$A \land B$的。换句话说：$A \land B$的一个证明，是一个$A$ 的证明和一个$B$的证明。
+2. \textbf{$\land$����}���������$\Gamma$�ֱ����֤��$A$��$B$�������֤��$A \land B$�ġ����仰˵��$A \land B$��һ��֤������һ��$A$ ��֤����һ��$B$��֤����
 
 \begin{prooftree}
   \AxiomC{$[\Gamma]$}
@@ -68,7 +68,7 @@ $$A, B ::= \alpha \ | \ A \to B \ | \ A \land B \ | \ \top$$
 \end{prooftree}
 
 
-3. \textbf{$\land$消去}：从$A \land B$可以证得$A$和$B$。
+3. \textbf{$\land$��ȥ}����$A \land B$����֤��$A$��$B$��
 
 \begin{prooftree}
 \AxiomC{$[\Gamma]$}
@@ -90,7 +90,7 @@ $$A, B ::= \alpha \ | \ A \to B \ | \ A \land B \ | \ \top$$
 \end{prooftree}
 
 
-4. \textbf{$\top$引入}：不需要任何假设就能得到$\top$。
+4. \textbf{$\top$����}������Ҫ�κμ�����ܵõ�$\top$��
 
 
 \begin{prooftree}
@@ -100,7 +100,7 @@ $$A, B ::= \alpha \ | \ A \to B \ | \ A \land B \ | \ \top$$
 
 \end{prooftree}
 
-5. \textbf{$\to$引入}：如果基于假设$[\Gamma, x:A]$可以证明$B$，则基于假设$\Gamma$可以证明$A \to B$。要注意的是，$x :A$ 并从假设中``消耗"了。为表强调我们在规则后写上$x$（$A$的标记）。
+5. \textbf{$\to$����}��������ڼ���$[\Gamma, x:A]$����֤��$B$������ڼ���$\Gamma$����֤��$A \to B$��Ҫע����ǣ�$x :A$ ���Ӽ�����``����"�ˡ�Ϊ��ǿ�������ڹ����д��$x$��$A$�ı�ǣ���
 
 \begin{prooftree}
 \AxiomC{$[\Gamma, x:A]$}
@@ -112,7 +112,7 @@ $$A, B ::= \alpha \ | \ A \to B \ | \ A \land B \ | \ \top$$
 \end{prooftree}
 
 
-6. \textbf{$\to$消去}：（等价于Hilbert系统的MP规则）
+6. \textbf{$\to$��ȥ}�����ȼ���Hilbertϵͳ��MP����
 
 
 \begin{prooftree}
@@ -131,17 +131,17 @@ $$A, B ::= \alpha \ | \ A \to B \ | \ A \land B \ | \ \top$$
 
 
 
-为了更直观地体现与类型论的共同点，我们介绍自然演绎的另一种等价的表达形式。
+Ϊ�˸�ֱ�۵������������۵Ĺ�ͬ�㣬���ǽ�����Ȼ�������һ�ֵȼ۵ı�����ʽ��
 
 
-在这种形式中，演绎规则不是导出一个个公式，而是使用了断言（judgment）的形式。它表示公式$B$是假设集$A_1,...,A_n$的后承。
-$$x_1:A,...,x_n:A_n \vdash B$$。这种写法可能会导致证明树有大量``$\Gamma$''而显得冗余，但是实际上更直观。
+��������ʽ�У���������ǵ���һ������ʽ������ʹ���˶��ԣ�judgment������ʽ������ʾ��ʽ$B$�Ǽ��輯$A_1,...,A_n$�ĺ�С�
+$$x_1:A,...,x_n:A_n \vdash B$$������д�����ܻᵼ��֤�����д���``$\Gamma$''���Ե����࣬����ʵ���ϸ�ֱ�ۡ�
 
 
 
 
 
-1. \textbf{公理}
+1. \textbf{����}
 
 \begin{prooftree}
 \AxiomC{}
@@ -153,7 +153,7 @@ $$x_1:A,...,x_n:A_n \vdash B$$。这种写法可能会导致证明树有大量``
 
 
 
-2. \textbf{$\land$引入}
+2. \textbf{$\land$����}
 
 \begin{prooftree}
     \AxiomC{$\Gamma \vdash A$}
@@ -162,7 +162,7 @@ $$x_1:A,...,x_n:A_n \vdash B$$。这种写法可能会导致证明树有大量``
     \BinaryInfC{$B$}
 \end{prooftree}
 
-3. \textbf{$\land$消去}
+3. \textbf{$\land$��ȥ}
 
 \begin{prooftree}
 
@@ -179,7 +179,7 @@ $$x_1:A,...,x_n:A_n \vdash B$$。这种写法可能会导致证明树有大量``
 \end{prooftree}
 
 
-4. \textbf{$\top$引入}
+4. \textbf{$\top$����}
 
 \begin{prooftree}
 \AxiomC{}
@@ -187,7 +187,7 @@ $$x_1:A,...,x_n:A_n \vdash B$$。这种写法可能会导致证明树有大量``
 \UnaryInfC{$\Gamma \vdash \top$}
 \end{prooftree}
 
-5. \textbf{$\to$引入}
+5. \textbf{$\to$����}
 
 \begin{prooftree}
 \AxiomC{$\Gamma , x:A \vdash B $}
@@ -195,7 +195,7 @@ $$x_1:A,...,x_n:A_n \vdash B$$。这种写法可能会导致证明树有大量``
 \UnaryInfC{$\Gamma \vdash A \to B$}
 \end{prooftree}
 
-6. \textbf{$\to$消去}
+6. \textbf{$\to$��ȥ}
 
 \begin{prooftree}
 \AxiomC{$\Gamma \vdash A \to B $}
