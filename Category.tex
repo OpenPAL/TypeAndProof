@@ -17,7 +17,7 @@
 	\item 对任意三个对象 $A, B, C$，态射复合
 	\[ \mathcal{C}_{A,B,C} : \mathcal{C}(A,B) \times \mathcal{C}(B,C) \rightarrow \mathcal{C}(A,C)\]
 	态射复合 $\mathcal{C}_{A,B,C}(f,g)$ 记为 $g \circ f$ 或 $f\ ;\ g$，图像化表示为 $A \overset{f}\longrightarrow B \overset{g}\longrightarrow C$
-	\item 对任意一个对象 $\text{id}_A : A \rightarrow A$
+	\item 对任意一个对象，存在单位态射 $\text{id}_A : A \rightarrow A$
 	\item 对于以上定义，对任意态射 $f : A \rightarrow B$，$g : B \rightarrow C$，$h : C \rightarrow D$，符合公理：
 	\[ h \circ (g \circ f) = (h \circ g) \circ f \]
 	\[ f \circ id_A = f = id_B \circ f \]
@@ -27,6 +27,13 @@
 
 
 \subsection{函子}
+函子可以理解为范畴之间的态射，范畴 $\mathcal{C}$ 与 $\mathcal{D}$ 之间的函子 $F : \mathcal{C} \rightarrow \mathcal{D}$ 定义为：
+\begin{itemize}
+	\item 对象之间的映射：对于 $\mathcal{C}$ 内的每一个对象 $A$，将其联系至 $\mathcal{D}$ 内的对象 $F\ A$
+	\item 态射之间的映射：对于 $\mathcal{C}$ 内的每一个态射 $f : A \rightarrow B$，将其联系至 $\mathcal{D}$ 内的态射 $F\ f : F\ A \rightarrow F\ B$，使得结合律与单位态射得到保留：
+	\[ F\ (g \circ f) = F\ g \circ F\ f\]
+	\[ F\ id_{A} = id_{F\ A}\]
+\end{itemize}
 
 \subsection{伴随性}
 
