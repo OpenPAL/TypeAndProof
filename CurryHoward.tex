@@ -1,0 +1,50 @@
+\section{Curry-Howard同构}
+
+
+下面进入本文的重点：简单类型$\lambda$演算与直觉主义逻辑的Curry-Howard同构。
+
+
+\subsection{类型和证明}
+
+比较$\lambda$演算的定型规则和上节自然演绎系统的规则，不难得出以下``对应"
+
+\begin{table}[!htb]
+\centering
+\caption{C-H同构}
+\label{my-label}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{类型系统} & \textbf{直觉主义逻辑} \\ \hline
+类型            & 公式（命题）            \\ \hline
+$\to$类型构造算子        & $\to$逻辑连接词   \\ \hline
+变量                        & 假设                  \\ \hline
+$\lambda$抽象            & 蕴含引入              \\ \hline
+$\lambda$应用            & 蕴含消除              \\ \hline
+\end{tabular}
+\end{table}
+
+
+回到本文之前提到的类型居留问题。
+
+\begin{thm}
+
+存在带有特定类型的闭合$\lambda$表达式，当且仅当这个类型对应于一个逻辑定理。
+\end{thm}
+
+在直觉主义命题演算中，给定一个导出（或者断言）$x_1:A_1, .., x_n:A_n \vdash B$，存在一个对应的$\lambda$项$M$，且$x_1:A_1,...,x_n:A_n \vdash M : B$。
+
+
+
+
+
+\subsection{规约和证明}
+
+
+Refer to book: Lecture on CH Isomorphism?
+continuation <-> classical, 
+STLC <-> Propositional,
+cut elimination <-> reduction
+COC + Universe <-> ZFC
+System F <-> fragment of Second order intuitionistic logic
+Hilbert <-> SKI
+UTLC <-> Exfalso (Why total language matter)

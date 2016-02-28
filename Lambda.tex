@@ -1,0 +1,235 @@
+\section{简单类型$\lambda$演算}
+
+本节所采用的带类型$lambda$演算扩展主要参考自\emph{Lectures notes on the Lambda Calculus}, Peter Selinger。
+
+\subsection{语法}
+
+类型的BNF规则如下：
+
+$$A, B ::= \iota \ | \ A \to B \ | \ A \times B  \ | \ 1$$
+
+\begin{tightenum}
+  \item 基础类型$\iota$代表integers, booleans等的类型；
+  \item $A \to B$为从$A$到$B$的函数的类型；
+  \item $A \times B$是二元组$\langle x, y \rangle$ 的类型，其中$x$有类型$A$，$y$有类型$B$。
+  \item $1$表示只有一个元素的类型，类似程序语言中的``void"和``unit"。
+\end{tightenum}
+
+
+我们约定：$\times$的结合性比$\to$更强，$\to$是右结合的。比如：$A \times B \to C$等价于$(A \times B) \to C$，$A \to B \to C$相当于$A \to (B \to C)$。
+
+
+$\lambda$项($\lambda$ terms，或者$\lambda$表达式)的语法：
+
+$$M, N ::= x \ | \ M N \ | \ \lambda x^A . M \ | \ \langle M, M \rangle \ | \ \pi_1 M \ | \ \pi_2 M \ | \ * $$
+
+其中，$\langle M, M \rangle$表示一对$\lambda$项，$\pi_i M$是一个``投射"(projection)，定义为：$\pi_i \langle M_1, M_2 \rangle = M_i$。$\star$表示类型``1"的元素（只有一个）。 $\lambda x^A. M$表示$x$有类型$A$。
+
+\begin{rem}
+
+很多文献中对$\lambda x^A. M$采用另一种写法$\lambda x:A. M$
+\end{rem}
+
+
+\begin{defn} （\textbf{自由变量}）
+
+
+\end{defn}
+
+\begin{defn}（\textbf{闭合}）
+
+一个$\lambda$项（表达式）是闭合的，如果它不包含自由变量
+\end{defn}
+
+
+\subsection{类型}
+
+从程序语言的角度，类型系统(Type system)属于``静态语义"(static semantic)。下面给出简单类型$\lambda$演算的类型系统
+
+\begin{defn}（\textbf{类型断言}，Typing judgement）
+
+又称类型指派，$x:A$：表示变量$x$有类型$A$；
+\end{defn}
+
+\begin{defn}（\textbf{类型环境}， Typing environment）
+
+又称类型上下文， 一般用$\Gamma, \Delta,...$ 表示，指代形为$\Gamma = \{x_1:A_1,...,x_k:A_k \}$的类型断言集合，即：$x_1,...x_k$ 分别有类型$A_1,...,A_k$。
+
+
+
+\end{defn}
+
+\begin{note}
+
+如果$\Gamma$是一个类型环境，那么$\Gamma, x:A$表示$\Gamma \cup {x:A}$（这样写的时候，总假定$x$不出现在$\Gamma$中）
+
+\end{note}
+
+有了类型环境，类型断言可以表达为，$\Gamma \vdash M:A$，即在类型环境$\Gamma$中， $M$有类型$A$，$\Gamma = \{x_1:A_1,...,x_k:A_k \}$，注意$M$的自由变量必须包含在$x_1, ..., x_k$中。类型环境可以看做是一种假定、前提。
+
+
+\begin{defn}(\textbf{定型规则}，Typing rule)
+
+定型规则指一定类型环境中，表达式类型的推理规则。
+
+\end{defn}
+
+下面是简单类型$\lambda$演算的定型规则：
+\begin{tightenum}
+  \item $(var)$规则：假定$x$有类型$A$，则$x$有类型$A$。
+  \item $(app$规则：类型为$A \to B$的函数可以引用到类型$A$的参数上， 并产生类型$B$的结果
+  \item 等等。
+\end{tightenum}
+
+$$\frac {}
+       {\Gamma, x:A \vdash x : A} \ (var)$$
+
+
+$$\frac {\Gamma \vdash M : A \to B \ \ \ \ \Gamma \vdash N : A}
+       {\Gamma \vdash M N : B} \ (app)$$
+
+
+$$\frac {\Gamma, x:A \vdash M : B }
+       {\Gamma \vdash \lambda x ^ A . M: A \to B} \ (abs)$$
+
+$$\frac {\Gamma \vdash M : A \ \ \ \ \Gamma \vdash N : B }
+       {\Gamma \vdash \langle M, N \rangle : A \times B} \ (pair) \ \ \ \ \
+\frac {} {\Gamma \vdash \star : 1} \ (\star)$$
+
+$$\frac {\Gamma \vdash M : A \times B }
+       {\Gamma \vdash \pi_1 M : A} \ (\pi_1) \ \ \ \ \
+\frac {\Gamma \vdash M : A \times B}
+       {\Gamma \vdash \pi_2 M : A} \ (\pi_2)$$
+
+
+
+\begin{defn}（\textbf{类型导出}，Typing derivation）
+
+给定类型断言$\Gamma \vdash M : A$，利用定型规则逐步推出它的过程叫做类型导出。如果存在一个类型导出，
+说明该断言是有效的。
+\end{defn}
+
+\begin{exmp}
+考察下面表达式，我们自底向上对其类型断言给出一个类型导出。
+$$\vdash \lambda x^{A \to A} . \lambda y^A . x(xy) : (A \to A) \to A \to A$$
+
+
+\begin{prooftree}
+
+\AxiomC{}
+\UnaryInfC{$x:A \to A, y:A \vdash x:A \to A$}
+           \AxiomC{}
+           \UnaryInfC{$x:A \to A, y:A \vdash y:A$}
+     \BinaryInfC{$x:A \to A, y:A \vdash xy : A$}
+
+     \AxiomC{}
+     \UnaryInfC{$x:A \to A, y:A \vdash x:A \to A$}
+         \BinaryInfC{$x:A \to A, y:A \vdash x(xy) : A$}
+         \UnaryInfC{$x:A \to A, y:A \vdash \lambda y^A . x(xy) : A \to A$}
+         \UnaryInfC{$\vdash \lambda x^{A \to A} . \lambda y^A . x(xy) : (A \to A) \to A \to A$}
+
+\end{prooftree}
+
+\end{exmp}
+
+
+\begin{defn}（\textbf{类型检查}，Type checking）
+
+给定$\Gamma$，$M$和$A$，找到一个类型导出。即，如果能够找到，类型检查通过。
+
+\end{defn}
+
+
+\begin{defn}（\textbf{类型推导}，Type inference）
+
+给定$\Gamma$和$M$，确定$A$。
+
+\end{defn}
+
+
+
+\begin{defn}（\textbf{良型的}，Well-typed）
+
+
+\end{defn}
+
+
+\begin{defn}（\textbf{类型可靠性}，Type soundness）
+
+
+\end{defn}
+
+\begin{exmp}
+考察以下类型，并思考：是否能够找到闭合的表达式，分别具有以下给定类型?
+
+\begin{tightenum}
+
+  \item $( A \times B) \to A$
+  \item $A \to B \to (A \times B)$
+  \item $(A \to B) \to (B \to C) \to (A \to C)$
+  \item $A \to A \to A$
+  \item $((A \to A) \to B) \to B$
+  \item $A \to (A \times B)$
+  \item $(A \to C) \to C$
+
+\end{tightenum}
+
+我们先给出答案：
+\begin{tightenum}
+  \item $\lambda x^{A \times B}.\pi_1 x$
+  \item $\lambda x^A . \lambda y^B . \langle x, y \rangle$
+  \item $\lambda x^{A \to B}. \lambda y^{B \to C} . \lambda z^A . y(xz)$
+  \item $\lambda x^A . \lambda y^A . x$ 和 $\lambda x^A . \lambda y^A . y$
+  \item $\lambda x^{(A \to A) \to B} . x(\lambda y^A . y)$
+  \item 无法找到闭合表达式
+  \item 无法找到闭合表达式
+\end{tightenum}
+\end{exmp}
+
+由上例引出如下问题：
+
+\begin{defn} （\textbf{类型居留问题}）
+
+给定类型，是否一定存在相应类型的闭合$\lambda$表达式。找到特定类型的
+$\lambda$表达式的问题称为类型居留问题。
+
+\end{defn}
+
+
+
+类型居留问题揭示了类型和逻辑之间巧妙的联系。下面将类型表达式中的``$\times$"换成逻辑与符号``$\land$"，``$\to$"换成逻辑蕴涵符号`` $\to$"，可以获得以下逻辑公式：
+
+\begin{tightenum}
+  \item $( A \land B) \to A$
+  \item $A \to B \to (A \land B)$
+  \item $(A \to B) \to (B \to C) \to (A \to C)$
+  \item $A \to A \to A$
+  \item $((A \to A) \to B) \to B$
+  \item $A \to (A \land B)$
+  \item $(A \to C) \to C$
+\end{tightenum}
+
+\begin{rem}
+有的文献为了方便区分，会用$\supset$或者$\Rightarrow$表示逻辑蕴涵，但是为了符合我们的通常印象且不失统一性，本文用$\to$表示逻辑蕴涵符号。尽管它和类型中的符号$\to$ 重复了，请读者根据上下文区分。
+\end{rem}
+
+实际上，1-5都是逻辑有效的（都是永真式，或者重言式），而6和7不是。
+后面我们会知道，给定类型，只有当它（通过以上方式）对应的逻辑公式有效时，才能找到相应的$\lambda$表达式！
+
+简单类型$\lambda$演算和逻辑的这种联系（或者对应）称为``Curry-Howard同构"。更准确地说，此处的``逻辑"指代直觉主义命题逻辑。 在后续的章节中我们将进一步阐述。
+
+
+\subsection{正则性}
+
+有两种正则性，强正则性（Strong Normalization)，弱正则性（Weak  Normalization)。
+强正则性表示，对于一表达式，无论采用任何规约方式，到最后都会变成值。
+弱正则性则是，对于一个表达式，都存在一种规约策略，可以规约成值。
+
+简单类型$\lambda$演算有正则性，证明大体如下：
+先定义一个集合R，一个表达式在R里面，当且仅当该表达式是强正则的，并没有自由变量，并且
+1：该表达式的类型是基础类型
+2：该表达式的类型是函数，并且对于所有输入,如果输入在R，输出也在R
+
+通过在类型推导规则上进行归纳，可以证所有的没有自由变量的表达式都在R里面，所以是强正则的。
+
+对于形式化的证明，可以看 \url {https://www.cis.upenn.edu/~bcpierce/sf/current/Norm.html}

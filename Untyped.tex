@@ -1,0 +1,386 @@
+\section{无类型$\lambda$演算}
+
+本节由txyyss和rainoftime提供。我们力求严格、形式化地介绍无类型$\lambda$演算，在这部分把自由变量、$\alpha$变换、$\beta$ 规约等基础概念说明清楚，也方便后续内容更集中在要点上。读者可选择性阅读。
+
+
+
+
+
+
+\begin{defn}{\bfseries{($\lambda$ 项)}}\label{def:lambdaterm}
+
+  假设我们有一个无穷的字符串集合，里面的元素被称为\emph{变量}（和程序
+    语言中变量概念不同，这里就是指字符串本身）。那么 \emph{$\lambda$ 项}定义如下：
+  \begin{tightenum}
+  \item 所有的变量都是 $\lambda$ 项（名为\emph{原子}）；
+  \item 若 $M$ 和 $N$ 是 $\lambda$ 项，那么 $(M\,N)$ 也是 $\lambda$ 项
+    （名为\emph{应用}）
+  \item 若 $M$ 是 $\lambda$ 项而 $\phi$ 是一个变量，那么 $(\lambda\phi.M)$
+    也是 $\lambda$ 项（名为\emph{抽象}）。
+  \end{tightenum}
+\end{defn}
+
+
+
+\begin{exmp}{\bfseries{（一些 $\lambda$ 项）}}
+  下面这些都是 $\lambda$ 项：
+  \begin{center}
+    \begin{tabular*}{.8\textwidth}{@{\extracolsep{\fill} }ccc}
+      $(\lambda x.(x\,y))$ & $(x(\lambda x.(\lambda x.x)))$ & $((((a\,b)\,c)\,d)\,e)$\\
+      $(((\lambda x.(\lambda y.(y\,x)))\,a)\,b)$ & $((\lambda y.y)\,(\lambda x.(x\,y)))$ & $(\lambda x.(y\,z))$
+    \end{tabular*}
+  \end{center}
+\end{exmp}
+
+$\lambda$ 项是一种形式语言，换句话说，就是一类特殊形式的字符串罢，没
+有任何内在的意义，只是个``形式''。通常情况下，当讨论一个形式语言的时候，
+我们需要用另一种元语言来指称形式语言里的元素。就如讨论自然数时，我们经
+常说``对任意自然数 $n$''，这里的 $n$ 本身并不是自然数，用来指称自然数
+罢了。我们也需要一些``$n$''来表示 $\lambda$ 项中的元素。因此，我们作如
+下符号约定：
+
+\begin{notation}
+  本节中我们用大写英文字母表示任意 $\lambda$ 项，用除 $\lambda$ 以外的
+  小写希腊字母如 $\phi$，$\psi$ 等表示任意 $\lambda$ 项中的变量。
+
+  对于括号，则有如下的省略规定：
+  \begin{tightenum}
+  \item $\lambda$ 项中最外层的括号可以省略，如 $(\lambda x.x)$ 可以省
+    略表示为 $\lambda x.x$；
+  \item 左结合的应用型的 $\lambda$ 项，如 $(((M\,N)\,P)\,Q)$，括号可
+    以省略，表示为 $M\,N\,P\,Q$；
+  \item 抽象型的 $\lambda$ 项 $(\lambda \phi.M)$ 中，$M$ 最外层的括号可以省略，
+    如 $\lambda x.(y\,z)$ 可以省略为 $\lambda x.y\,z$。
+  \end{tightenum}
+  也就是说，我们把省略形式视同定义 \ref{def:lambdaterm} 中的 $\lambda$ 项。
+\end{notation}
+
+\begin{exmp}{\bfseries{（省略表示）}}
+  下面给出了一些省略表示的 $\lambda$ 项。
+  \begin{center}
+    \begin{tabular*}{.7\textwidth}{@{\extracolsep{\fill} }ll}
+      省略表示 & 完整的 $\lambda$ 项\\
+      $\lambda x.\lambda y.y\,x\,a\,b$ & $(\lambda x.(\lambda y.(((y\,x)\,a)\,b)))$\\
+      $(\lambda x.\lambda y.y\,x)\,a\,b$ & $(((\lambda x.(\lambda y.(y\,x)))\,a)\,b)$\\
+      $\lambda g.(\lambda x.g\,(x\,x))\,\lambda x.g\,(x\,x)$ & $(\lambda g.((\lambda x.(g\,(x\,x)))\,(\lambda x.(g\,(x\,x)))))$\\
+      $\lambda x.\lambda y.a\,b\,\lambda z.z$ & $(\lambda x.(\lambda y.((a\,b)\,(\lambda z.z))))$\\
+    \end{tabular*}
+  \end{center}
+\end{exmp}
+
+
+
+\subsection{$\alpha$替换}
+
+这一小节将形式化的定义什么是
+$\lambda$ 项的替换操作。直观的来讲，就是把 $\lambda$ 项中不被
+$\lambda\phi$ 约束的变量 $\phi$ 替换成另一个 $\lambda$ 项罢了。但这么
+一个操作的精确定义却不是直接和易于理解的。
+
+\begin{defn}{\bfseries{（语法全等）}}
+
+  我们用恒等号``$\equiv$''表示两个 $\lambda$ 项完全相同。换句话说
+  $$
+  M\equiv N
+  $$表示 $M$ 和 $N$ 有完全相同的结构，且对应位置上的变量也完全相同。这意
+  味着若 $M\,N\equiv P\,Q$ 则 $M\equiv P$ 且 $N\equiv Q$，若
+  $\lambda\phi.M\equiv\lambda\psi.P$ 则 $\phi\equiv\psi$ 且 $M\equiv P$。
+\end{defn}
+
+\begin{defn}{\bfseries{（自由变量）}}
+
+  对一个 $\lambda$ 项 $P$，我们可以定义 $P$ 中\emph{自由变量}的集合
+  $\text{FV}(P)$ 如下：
+  \begin{tightenum}
+  \item $\text{FV}(\phi) = \{\phi\}$
+  \item $\text{FV}(\lambda\phi.M) = \text{FV}(M)\,\backslash\,\{\phi\}$\label{enum:fvforabs}
+  \item $\text{FV}(M\,N) = \text{FV}(M)\cup\text{FV}(N)$
+  \end{tightenum}
+\end{defn}
+
+从第 \ref{enum:fvforabs} 可以看出抽象 $\lambda\phi.M$ 中的变量 $\phi$
+是要从 $M$ 中被排除出自由变量这个集合的。若 $M$ 中有 $\phi$，我们可以
+说它是被\emph{约束}的。据此可以进一步定义\emph{约束变量}集合。值得注意
+的是，对同一个 $\lambda$ 项来说，这两个集合的交集未必为空。
+
+\begin{exmp}{\bfseries{（自由变量）}}
+  \begin{center}
+    \begin{tabular*}{.7\textwidth}{@{\extracolsep{\fill} }ll}
+      $\lambda$ 项 $P$ & 自由变量集合 $\text{FV}(P)$\\
+      $\lambda x.\lambda y.x\,y\,a\,b$ & $\{a,b\}$\\
+      $a\,b\,c\,d$ & $\{a,b,c,d\}$\\
+      $x\,y\,\lambda y.\lambda x.x$ & $\{x,y\}$
+    \end{tabular*}
+  \end{center}
+\end{exmp}
+
+上面最后一个例子里，最左边的 $x,y$ 是自由变量，而最右侧的 $x$ 则是约束
+变量。若对 $\lambda$ 项 $P$ 有 $\text{FV}(P)=\emptyset$，则称 $P$ 是
+\emph{封闭}的，这样的 $P$ 又称为\emph{组合子}。
+
+\begin{defn}{\bfseries{（出现）}}
+
+  对于 $\lambda$ 项 $P$ 和 $Q$，可以定义一个二元关系\emph{出现}。我们
+  说 $P$ 出现在 $Q$ 中，是这样定义的：
+  \begin{tightenum}
+  \item $P$ 出现在 $P$ 中；
+  \item 若 $P$ 出现在 $M$ 中或 $N$ 中，则 $P$ 出现在 $(M\,N)$ 中；
+  \item 若 $P$ 出现在 $M$ 中或 $P\equiv\phi$，则 $P$ 出现在 $(\lambda\phi.M)$ 中。
+  \end{tightenum}
+\end{defn}
+
+有了上面这些定义，我们终于可以定义什么叫 $\lambda$ 项的替换操作了：
+\begin{defn}{\bfseries{（替换）}}\label{def:sub}
+
+  对任意 $M,N,\phi$，定义 $[N/\phi]\,M$ 是把 $M$ 中出现的自由变量
+  $\phi$ 替换成 $N$ 后得到的结果，这个替换有可能改变部分约束变量名称以
+  避免冲突。具体精确定义是一个对 $M$ 的归纳定义：
+  \begin{tightenum}
+  \item $[N/\phi]\,\phi\equiv N$
+  \item $[N/\phi]\,\alpha\equiv\alpha$\hfill 对所有满足
+    $\alpha\not\equiv\phi$ 的原子 $\alpha$
+  \item $[N/\phi]\,(P\,Q)\equiv([N/\phi]\,P\;[N/\phi]\,Q)$\label{enum:sub:app}
+  \item $[N/\phi]\,(\lambda\phi.P)\equiv\lambda\phi.P$\label{enum:sub:samebind}
+  \item $[N/\phi]\,(\lambda\psi.P)\equiv\lambda\psi.P$\hfill 若
+    $\phi\not\in\text{FV}(P)$\label{enum:sub:bind}
+  \item
+    $[N/\phi]\,(\lambda\psi.P)\equiv\lambda\psi.[N/\phi]\,P$\hfill
+    若 $\phi\in\text{FV}(P)$ 且 $\psi\not\in\text{FV}(N)$\label{enum:sub:1free}
+  \item
+    $[N/\phi]\,(\lambda\psi.P)\equiv\lambda\eta.[N/\phi][\eta/\psi]\,P$\hfill
+    若 $\phi\in\text{FV}(P)$ 且 $\psi\in\text{FV}(N)$\label{enum:sub:2free}
+  \end{tightenum}
+  对其中从 \ref{enum:sub:bind} 到 \ref{enum:sub:2free} 的各条来说，
+  $\phi\not\equiv\psi$；而对 \ref{enum:sub:2free}，$\eta$ 是满足
+  $\eta\not\in\text{FV}(N\,P)$ 的任意变量。
+\end{defn}
+
+下面解释一下这个看上去很长很恐怖的定义，其实只要带着``替换 $\lambda$
+项中的自由变量 $\phi$ 为 $N$''这个直观去看，就不难理解。前两条无非是说，
+要是一个原子刚好是要被替换的变量，那就替换，不然就不动。第
+\ref{enum:sub:app} 条也好说，遇到应用了，那就替换各子项。第
+\ref{enum:sub:samebind} 条，$P$ 中的 $\phi$ 是被约束的，不能替换所以结
+果不变。同样的情况发生在第 \ref{enum:sub:bind} 条，$P$ 中没有自由变量
+$\phi$，结果也不变。顺着这个思路往下想，$P$ 中要是有自由变量 $\phi$，
+是不是就可以替换了呢？是的，这就是第 \ref{enum:sub:1free} 条的内容了。
+不过这条还有个附加条件，$\psi\not\in\text{FV}(N)$，为什么呢？因为 $P$
+是被 $\lambda\psi$ 约束着的，把 $N$ 替换进去的时候，要是
+$\text{FV}(N)$ 里面有 $\psi$，那替换进去的 $N$ 中的 $\psi$ 就从自由变
+量变成约束变量了。这多少有点让人不放心，所以我们先把这个条件加上，这样
+替换不会把自由变量变成约束变量，这就是第 \ref{enum:sub:1free} 了。但要
+是不如意事长八九，$\text{N}$ 中偏偏有 $\psi$ 怎么办呢？为了避免这个冲
+突，干脆把原先约束的变量先换成绝对不会起冲突的吧，找一个
+$\eta\not\in\text{FV}(N\,P)$ 换掉 $\psi$，然后再按第
+\ref{enum:sub:1free} 条来办，这就是第 \ref{enum:sub:2free} 的内容了。
+特别注意这一条中，不仅把 $P$ 中的 $\psi$ 换成了 $\eta$，连最前面的
+$\lambda\psi$ 都被换成了 $\lambda\eta$。
+
+上面的解释只是为了让读者理解一下定义 \ref{def:sub} 的合理性，其实还是
+有一些没有解释清楚的疑问，比如为什么从自由变量变成约束变量就不好了？第
+\ref{enum:sub:2free} 条中 $\eta$ 有无数种选择，这种不确定性会不会有什
+么问题？这些问题的答案是：没什么为什么，定义如此。定义不是定理，它说了
+算，就算有它内蕴的合理性，也并不需要在这个时候证明。
+
+定义 \ref{def:sub} 的第 \ref{enum:sub:2free} 条里，替换的不确定性暗示
+了可以任意替换约束变量而不改变``意义''。这个可以类比的理解，例如定积分
+$$
+\int_a^bf(x)\text{d}x
+$$里的 $x$ 是所谓的哑变量，换成别的如 $f(t)\text{d}t$ 不会改变积分式的
+值。又比如正弦函数是写成 $\sin x$ 还是 $\sin t$ 都不影响它的意义。不过
+这只是我为了能直观理解而加上的一种解释。实际上 $\lambda$ 项是形式系统，
+只是形式，一堆字符串罢了，哪里有什么``意义''。
+
+可以说为了补救任意替换约束变量给人带来的不安，我们有了下面的定义：
+
+\begin{defn}{\bfseries{（$\alpha$ 变换和 $\alpha$ 等价）}}
+  设 $\lambda\phi.M$ 出现在一个 $\lambda$ 项 $P$ 中，且设
+  $\psi\not\in\text{FV}(M)$，那么把 $\lambda\phi.M$ 替换成
+  $$
+  \lambda\psi.[\psi/\phi]\,M
+  $$的操作被称为 $P$ 的 \emph{$\alpha$ 变换}。当且仅当若 $P$ 经过有限
+  步（包括零步）$\alpha$ 变换后，得到新的 $\lambda$ 项 $Q$，则我们可以
+  称 $P$ 与 $Q$ 是 $\alpha$ 等价的，又写作
+             $$ P\quad\equiv_\alpha\quad Q
+             $$
+\end{defn}
+
+\begin{exmp}
+  $$
+  \lambda x.\lambda y.x(x\,y) \equiv_\alpha\lambda x.\lambda v.x(x\,v) \equiv_\alpha\lambda u.\lambda v.u(u\,v)
+  $$
+\end{exmp}
+
+容易证明，$\equiv_\alpha$ 满足自反性、对称性和传递性，所以确实是等价关
+系。有了 $\alpha$ 等价，定义 \ref{def:sub} 就显得更加合理了，第
+\ref{enum:sub:2free} 带来的疑问也得到解答了：不是担心任意替换不妥当么？
+那么我们可以把 $\alpha$ 等价的 $\lambda$ 项都看成相同的，这不就``补救''了
+由于不确定替换带来的问题嘛。事实上，有更好的结果：
+
+\begin{thm}
+  若 $M\,\equiv_\alpha\,M'$ 且 $N\,\equiv_\alpha\, N'$，则
+  $[N/x]\,M\,\equiv_\alpha\,[N'/x]\,M'$
+\end{thm}
+
+强调一下，这个小节里定义的 $[N/\phi]\,M$ 并不是 $\lambda$ 项这个形式语
+言里的东西，它只是一种记号，用来指称替换后的 $\lambda$ 项而已，切记切
+记。而我各种解释说明中的意义和类比都只是为了方便直观的理解，并不是说
+$\lambda$ 项有这些``意义''。它始终只是``名''，和``实''不相关。作来体现。
+
+\subsection{$\beta$规约}
+
+现在我们有了 $\lambda$ 项，有了替换的规则，那么什么时候需要进行替换呢？
+这就是本小节要讨论的话题：规约。有了规约，整个关于 $\lambda$ 项的形式
+系统才算完整，才可以说是 $\lambda$ 演算。
+
+先介绍 $\beta$ 规约，$\beta$ 规约可以这么直观的理解：我们可以把
+$(\lambda\phi.M)$ 看成是参数为 $\phi$，函数体为 $M$ 的一个函数；把
+$(M\,N)$ 看成是函数 $M$ 作用到实际参数 $N$ 上\footnote{还是再强调一下，
+  这只是直观的理解，并不是说两种 $\lambda$ 项一个是函数，一个是函数应
+  用。$\lambda$ 项不是这些意义，只是字符串。}。平时我们要是定义了函数
+$f(x)=x+5$，那么函数应用 $f(6)$ 就是把 $x+5$ 中的 $x$ 替换成 6，得到
+$f(6)=6+5=11$。替换是函数应用的实质啊。
+
+\begin{defn}{\bfseries{（$\beta$ 规约）}}\label{def:betareduce}
+  形如
+  $$
+  (\lambda\phi.M)\,N
+  $$
+  的 $\lambda$ 项被称为 \emph{$\beta$ 可约式}，对应的项
+  $$
+  [N/\phi]\,M
+  $$则称为 \emph{$\beta$ 缩减项}。当 $P$ 中含有 $(\lambda\phi.M)\,N$时，
+  我们可以把 $P$ 中的 $(\lambda\phi.M)\,N$ 整体替换成$[N/\phi]\,M$，用
+  $R$ 指称替换后的得到的项，那么我们说 $P$ 被 \emph{$\beta$ 缩减}为
+  $R$，写做：
+  $$
+  P\;\triangleright_{1\beta}\;R
+  $$当 $P$ 经过有限步（包括零步）的 $\beta$ 缩减后得到 $Q$，则称 $P$
+  被 \emph{$\beta$ 规约}到 $Q$，写做：
+  $$
+  P\;\triangleright_\beta\;Q
+  $$
+\end{defn}
+
+\newcommand{\betac}{\triangleright_{1\beta}}
+\newcommand{\betar}{\triangleright_\beta}
+\newcommand{\betae}{=_\beta}
+
+\begin{exmp}{\bfseries{（$\beta$ 缩减）}}\label{exmp:beta}
+  \begin{alignat*}{2}
+    (\lambda x.x\,(x\,y))\,m \quad &\betac\quad  m(m\,y) \\
+    (\lambda x.y)\,n \quad &\betac\quad y \\
+    (\lambda x.(\lambda y.y\,x)z)\,v\quad &\betac\quad [v/x]\,((\lambda y.y\,x)z) & &\equiv\quad (\lambda y.y\,v)z\\
+    &\betac\quad [z/y]\,(y\,v)&\quad &\equiv\quad z\,v \\
+    (\lambda x.x\,x)\,(\lambda x.x\,x)\quad &\betac\quad [(\lambda x.x\,x)/x]\,(x\,x) & &\equiv\quad (\lambda x.x\,x)\,(\lambda x.x\,x)\\
+    &\betac\quad [(\lambda x.x\,x)/x]\,(x\,x) & &\equiv\quad (\lambda x.x\,x)\,(\lambda x.x\,x)\\
+    &\cdots\quad \text{etc.}\\
+    (\lambda x.x\,x\,y)\,(\lambda x.x\,x\,y)\quad
+    &\betac\quad (\lambda x.x\,x\,y)\,(\lambda x.x\,x\,y)\,y\\
+    &\betac\quad (\lambda x.x\,x\,y)\,(\lambda x.x\,x\,y)\,y\,y \\
+    &\cdots\quad \text{etc.} \\
+  \end{alignat*}
+\end{exmp}
+
+从上面的例子可以看出，$\beta$ 缩减虽然名为缩减，但实际情况是复杂的。像
+最后这两个例子，一个永远缩减为自身，一个甚至更糟糕，越来越长，非但不是缩
+减反而是增长了。
+
+\begin{defn}{\bfseries{（$\beta$ 范式）}}
+
+  若一个 $\lambda$ 项 $Q$ 不含有 $\beta$ 可约式，则称 $Q$ 为
+  \emph{$\beta$ 范式}。若有 $P$ 可被 $\beta$ 规约到 $Q$，则称 $Q$ 是
+  $P$ 的 $\beta$ 范式。
+\end{defn}
+
+从示例 \ref{exmp:beta} 可以看出，并不是所有的 $\lambda$ 项都能
+$\beta$ 规约到 $\beta$ 范式。这其实还不是最让人担心的，有一个之前读者
+也许没注意到的问题：定义 \ref{def:betareduce} 里关于 $\beta$ 规约的定
+义非常``狡猾''，或者叫非常含糊，它只要求存在一个有限长的 $\beta$ 缩减
+链就行，当 $\lambda$ 项中含有不止一个 $\beta$ 可约式的时候，可以有不同
+顺序的缩减方式。
+
+\begin{exmp}\label{exmp:difforder}
+  让我们重新看一下示例 \ref{exmp:beta} 里的 $(\lambda x.(\lambda
+  y.y\,x)z)\,v$，最外层的 $(\lambda\dots)\,v$ 是一个 $\beta$ 可约式，
+  里层的 $(\lambda y.y\,x)\,z$ 也是一个 $\beta$ 可约式。那么就有两种缩
+  减方式：
+  \begin{alignat*}{2}
+    (\lambda x.(\lambda y.y\,x)z)\,v\quad &\betac \quad (\lambda y.y\,v)\,z \quad& &\text{缩减~}(\lambda x.(\lambda y.y\,x)z)\,v\\
+    &\betac\quad z\,v\quad & &\text{缩减~}(\lambda y.y\,v)\,z\\
+    (\lambda x.(\lambda y.y\,x)z)\,v\quad &\betac \quad (\lambda x.z\,x)\,v \quad& &\text{缩减~}(\lambda y.y\,x)\,z\\
+    &\betac\quad z\,v\quad & &
+  \end{alignat*}
+\end{exmp}
+
+从示例 \ref{exmp:difforder} 可以看到，虽然缩减顺序不一样，但最后得
+到了同样的结果。这个是不是对所有的 $\lambda$ 项都成立呢？要是不成立，
+也就说顺序会影响规约结果，就不好了。这个问题的答案可以说既让人满意也让
+人不满意。
+
+\begin{thm}{\bfseries{（Church--Rosser 定理）}}
+
+  若 $P\betar M$ 且 $P\betar N$，则存在一个 $\lambda$ 项 $T$ 使得
+$$
+M\;\betar\; T\quad\text{且}\quad N\;\betar\; T.
+$$
+\end{thm}
+
+Church--Rosser 定理最重要的一个应用就是可以用来证明如下重要结果：
+
+\begin{thm}
+  若 $P$ 有 $\beta$ 范式，则该范式在模 $\equiv_\alpha$ 的意义下唯一；
+  也就是说若 $P$ 有 $\beta$ 范式 $M$ 和 $N$，则 $M\,\equiv_\alpha\,N$。
+\end{thm}
+
+有了这个定理，我们可以放一半的心了：如果你对一个 $\lambda$ 项做
+$\beta$ 规约，最后得到个范式，可以确定这个范式某种程度上是唯一的，不用
+担心你因为规约顺序上的随意性导致这个范式和别人不一样。但为啥说是放一半
+的心呢？\emph{因为，这个定理并没有说：若 $P$ 有 $\beta$ 范式，那么你随
+  便按任意顺序规约，都能得到 $\beta$ 范式。}
+
+\begin{exmp}\label{exmp:diffdiverge}
+  让我们看下面有 $\beta$ 范式的 $\lambda$ 项的例子：
+  \begin{alignat*}{2}
+    (\lambda x.\lambda y. x)\,a\,((\lambda x.x\,x)\lambda x.x\,x)\; &\betac\;
+    ([a/x]\,(\lambda y.x))\,((\lambda x.x\,x)\lambda x.x\,x) &\; &\equiv\; (\lambda y.a)\,((\lambda x.x\,x)\lambda x.x\,x)\\
+    &\betac\; [((\lambda x.x\,x)\lambda x.x\,x)/y]\,a & &\equiv\; a
+  \end{alignat*}
+  这个 $\lambda$ 项其实包含三项，我们要是先归约前两项
+ $(\lambda\dots)$,a 就能得到一个 $\beta$ 范式。但注意第三项也是一个
+  $\beta$ 可约式，完全可以先对它进行规约。但如我们在示例
+  \ref{exmp:beta} 里的倒数第二项看到的，$((\lambda x.x\,x)\lambda
+  x.x\,x)$ 会不断规约到自身，所以要是执着于把它先规约了，就永远得不到
+  $\beta$ 范式了。
+\end{exmp}
+
+于是我们就要问了，若 $P$ 有 $\beta$ 范式，怎么才能规约得到它？按任意顺
+序规约就有可能出现示例 \ref{exmp:diffdiverge} 中的问题。可要是全部
+穷举，含有 $n$ 个 $\beta$ 可约式的话就有 $n!$ 种规约顺序，一一列举也太
+费事了吧。万幸，1958 年 Curry 证明了这么一个定理：
+
+\begin{thm}
+  对 $P$ 的总是先 $\beta$ 缩减最左侧最外侧的 $\beta$ 可约式，若这个过
+  程能无限进行下去，那么对 $P$ 的所有任意顺序的规约都能无穷进行下去。
+\end{thm}
+
+换而言之，要是 $P$ 有 $\beta$ 范式，那么这种最左最外侧优先的规约方式总
+能保证得到那个 $\beta$ 范式，这种规约顺序又称为\emph{正则序}。我的解释
+器实现的规约顺序就是正则序，虽然它规约需要的步数可能较多，但抵消不了这
+个巨大的优势啊。
+
+到目前为止，我们得到的结果都是满意的：一个 $\lambda$ 项若是有 $\beta$
+范式，那么这个 $\beta$ 范式某种程度上是唯一的，而且我们有确定的规约顺
+序保证得到这个范式。下面就只有一个问题了：能否有一个通用算法，判定一个
+$\lambda$ 项是否有 $\beta$ 范式？非常不幸，答案是否定的：
+
+\begin{thm}
+  $\lambda$ 项是否有 $\beta$ 范式是不可判定的。
+\end{thm}
+
+\begin{rem}
+
+\end{rem}
+
+到这里我们算是粗粗的把 $\lambda$ 演算的主要内容：$\beta$ 规约介绍了一
+下。还有个 $\eta$ 规约有兴趣的读者可以自行查找相关资料，这里就不多做介
+绍了。
