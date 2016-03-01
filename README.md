@@ -15,10 +15,13 @@ There may be some mistakes and it is not completed yet. Issues and pull requests
 - type checking VS. proof checking 
 - beta and ita reduction VS. prooving 
 - cut elimination and it's role in C-H isomorphism 
-- intro proof search 
+- intro to proof search 
 - intro to category theory
 - algebra semantic of logic and STLC
-
+- intro to lambda cube
+- linear logic and lienar type 
+- substructural logic and substructural type
+- focusing/polarizing in type theory  
 
 
 
