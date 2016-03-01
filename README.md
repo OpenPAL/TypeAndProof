@@ -7,6 +7,7 @@ This is the latex source of Type and proof, a short article about logic, type sy
 There may be some mistakes and it is not completed yet. Issues and pull requests are welcomed! 
 
 
+
 **TODO** 
 
 - denotational semantic of UTLC and STLC
@@ -22,7 +23,7 @@ There may be some mistakes and it is not completed yet. Issues and pull requests
 - linear logic and lienar type 
 - substructural logic and substructural type
 - focusing/polarizing in type theory  
-
+- First order logic
 
 
 **Contributors**
