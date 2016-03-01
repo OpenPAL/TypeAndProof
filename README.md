@@ -24,6 +24,7 @@ There may be some mistakes and it is not completed yet. Issues and pull requests
 - substructural logic and substructural type
 - focusing/polarizing in type theory  
 - First order logic
+- basic model theory
 
 
 **Contributors**
