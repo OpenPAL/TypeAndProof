@@ -13,7 +13,7 @@ There may be some mistakes and it is not completed yet. Issues and pull requests
 - C-H isomorphism under sequent calculus
 - type inference of STLC 
 - type checking VS. proof checking 
-- beta and ita reduction VS. prooving 
+- \beta and \eta reduction VS. prooving 
 - cut elimination and it's role in C-H isomorphism 
 - intro to proof search 
 - intro to category theory
