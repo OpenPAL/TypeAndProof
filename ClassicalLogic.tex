@@ -178,7 +178,7 @@ $L$的公式$A$在模型$\mathcal{M}$中的\textbf{取值}归纳定义如下：
 \begin{tightenum}
   \item 若$A$是某个命题变元$p_i$，则$\mathcal{M} \models A$当且仅当$p_i \in \mathcal{M}$
   \item 若$A$是$\neg B$，则$\mathcal{M} \models A$当且仅当$\mathcal{M} \nvDash B$，即$B$在$\mathcal{M}$中的取值不为真
-  \item 若$A$是$B \to C$，则$\mathcal{M} \models A$当且仅当$\mathcal{M} \nvDash B$或$\mathcal{M} \models A$
+  \item 若$A$是$B \to C$，则$\mathcal{M} \models A$当且仅当$\mathcal{M} \nvDash B$或$\mathcal{M} \models C$
 \end{tightenum}
 
 \end{defn}
@@ -520,10 +520,170 @@ $$ \vdash_{\mathrm{ND}} A \to \neg \neg A$$
 
 \subsection{相继式演算}
 
+\subsubsection{简介}
 
-待补充
+相继式演算与自然演绎的区别主要在于“基于某假设有某结论”的处理。在自然演绎中，这一个假设是放在逻辑证明的部分的顶部，与某一规则相对应（可参见前文对自然演绎系统规则的描述）。而在相继式演算中，这一假设作为条件在每一个相继式中直接表示出来。这样做的好处是使用起来更加直观。另外，这样得到的演绎规则更好地体现了逻辑连接词的对偶关系。
 
+\subsubsection{相继式}
 
+每个相继式具有如下形式：
+
+\[ A_1, A_2, \dots, A_n \vdash B_1, B_2, \dots B_m\]
+
+其中，$A_i$、$B_i$ 均为公式。$A_i$ 称为条件，而 $B_i$ 称为结论。每个条件、每个结论的顺序不区分。特别的，$\vdash$ 的两侧都可以没有任何公式。当没有结论时，右侧结论无条件成立；当没有结论时，相继式在从条件可推出矛盾时成立。
+
+\subsubsection{演绎规则}
+
+要证明一个相继式，就是从左侧的所有条件都成立的情况下，推导出右侧所有结论中的任意一个成立。这样做看起来有点不符合直观印象，但是后面我们就会发现它的妙处。在相继式演算中演绎规则的使用与自然演绎类似，也是由规则组成，但是不存在在某一子证明过程中多出的假设这一概念，而且引入、消去规则的区分也变成了左、右逻辑规则，分别对应处理出现在 $\vdash$ 左侧、右侧的逻辑连接词。
+
+下面给出经典命题逻辑的相继式演算证明规则。命题逻辑公式的语法如下：
+
+\[ P ::= P \rightarrow P\ |\ P \vee P\ |\ P \wedge P\ |\ \neg P\ |\ \bot \]
+
+符号的使用如下：
+
+\begin{enumerate}
+\item $A$ 和 $B$ 是任意命题逻辑的公式
+\item $\Gamma$、$\Delta$ 是任意公式序列，代表任意多个公式（包括 0 个）
+\end{enumerate}
+
+初始相继式 (Initial sequent)：以任何公式为条件，可以证明它自身。初始相继式体现了“由左侧所有条件推出右侧任意结论”这一点。为了方便知道是用了哪个公式，我们对 $I$ 做标记。
+
+\begin{prooftree}
+  \AxiomC{}
+  \LeftLabel{($I_A$)}
+  \UnaryInfC{$ \Gamma, A \vdash \Delta,  A $}
+\end{prooftree}
+
+逻辑割 (Cut)：从条件证明的结论可以用做条件。
+
+\begin{prooftree}
+  \AxiomC{$\Gamma \vdash \Delta , A$}
+  \AxiomC{$\Gamma, A \vdash \Delta $}
+  \LeftLabel{(Cut)}
+  \BinaryInfC{$\Gamma \vdash \Delta$}
+\end{prooftree}
+
+以下规则的中文名称不再赘述，符号名称均为 逻辑连接词 + L/R 的形式，分别代表这个逻辑连接词的左/右规则。
+
+\begin{multicols}{2}
+
+  \begin{prooftree}
+    \AxiomC{$\Gamma, A \vdash \Delta$}
+    \AxiomC{$\Gamma, B \vdash \Delta$}
+    \LeftLabel{($\vee$L)}
+    \BinaryInfC{$\Gamma, A \vee B \vdash \Delta$}
+  \end{prooftree}
+
+  \columnbreak
+
+  \begin{prooftree}
+    \AxiomC{$\Gamma \vdash A, \Delta$}
+    \AxiomC{$\Gamma \vdash B, \Delta$}
+    \LeftLabel{($\wedge$R)}
+    \BinaryInfC{$\Gamma \vdash A \wedge B, \Delta$}
+  \end{prooftree}
+
+\end{multicols}
+
+\begin{multicols}{2}
+
+  \begin{prooftree}
+    \AxiomC{$\Gamma, A, B \vdash \Delta$}
+    \LeftLabel{($\wedge$L)}
+    \UnaryInfC{$\Gamma, A \wedge B \vdash \Delta$}
+  \end{prooftree}
+
+  \columnbreak
+
+  \begin{prooftree}
+    \AxiomC{$\Gamma \vdash A, B, \Delta$}
+    \LeftLabel{($\vee$R)}
+    \UnaryInfC{$\Gamma \vdash A \vee B, \Delta$}
+  \end{prooftree}
+
+\end{multicols}
+
+仔细观察这两条规则，可以发现，逻辑连接词 $\wedge$ 和 $\vee$ 的对偶关系在相继式演算中很好地体现了出来 ------ 这四条规则非常对称。
+
+\begin{multicols}{2}
+
+  \begin{prooftree}
+    \AxiomC{$\Gamma \vdash A, \Delta$}
+    \LeftLabel{($\neg$L)}
+    \UnaryInfC{$\Gamma, \neg A \vdash \Delta$}
+  \end{prooftree}
+
+  \columnbreak
+
+  \begin{prooftree}
+    \AxiomC{$\Gamma, A \vdash \Delta$}
+    \LeftLabel{($\neg$R)}
+    \UnaryInfC{$\Gamma \vdash \neg A, \Delta$}
+  \end{prooftree}
+
+\end{multicols}
+
+\begin{multicols}{2}
+
+  \begin{prooftree}
+    \AxiomC{$\Gamma, A \vdash B, \Delta$}
+    \LeftLabel{($\to$R)}
+    \UnaryInfC{$\Gamma \vdash A \to B, \Delta$}
+  \end{prooftree}
+
+  \columnbreak
+
+  \begin{prooftree}
+    \AxiomC{$\Gamma \vdash A, \Delta$}
+    \AxiomC{$\Gamma, B \vdash \Delta$}
+    \LeftLabel{($\to$L)}
+    \BinaryInfC{$\Gamma, A \to B \vdash \Delta$}
+  \end{prooftree}
+\end{multicols}
+
+\begin{prooftree}
+  \AxiomC{}
+  \LeftLabel{($\bot$L)}
+  \UnaryInfC{$\Gamma, \bot \vdash \Delta$}
+\end{prooftree}
+
+剩余的是逻辑蕴含和否定的规则，以及假命题可以推出任意命题 (Ex falso quodlibet)。这里没有给出 $\neg$R，是因为它是没有用的：在 $\vdash$ 右侧去掉不可能证明的结论，对整个相继式能否证明无影响。
+
+\subsubsection{相继式在命题逻辑中的简单解释}
+
+一个相继式 $ A_1, A_2, \dots , A_n \vdash B_1, B_2, \dots, B_m$ 大致相当于命题逻辑里的 $ (A_1 \wedge \dots \wedge A_n) \to (B_1 \vee \dots \vee B_m) $。在经典逻辑下，这又相当于 $ \neg A_1 \vee \dots \vee \neg A_n \vee B_1 \vee \dots \vee B_m$ 或者 $ \neg (A_1 \wedge \dots \wedge A_n \wedge \neg B_1 \wedge \dots \wedge \neg B_m)$。由 De Morgan 定律 $ \neg ( X \vee Y ) \leftrightarrow \neg X \wedge \neg Y$ 和 $ \neg (X \wedge Y) \leftrightarrow \neg X \vee \neg Y$，我们就大致可以体会到逻辑连接词的对偶性在相继式演算中出现的深层内涵。
+
+\subsubsection{相继式演算中的证明过程}
+
+注意到除了 $I$ 和 Cut 以外，其它的规则均使相继式中减少了一个逻辑连接词，而遇到可以使用 $I$ 的地方，证明就不需要继续向上了。而且，Gentzen 证明了我们可以在不失去证明能力的情况下把 Cut 规则去掉 (Cut-elimination)。所以，命题逻辑中，相继式演算中的证明就变得非常简单 ------ 只需要把每个逻辑连接词都消去，然后在剩下的无连接词的相继式中找到匹配的公式，使用规则 $I$ 就可以了。以下举数例：
+
+\begin{prooftree}
+  \AxiomC{}
+  \LeftLabel{($I_A$)}
+  \UnaryInfC{$A \vdash A$}
+  \LeftLabel{($\neg$R)}
+  \UnaryInfC{$\vdash A, \neg A$}
+  \LeftLabel{($\vee$R)}
+  \RightLabel{(排中律)}
+  \UnaryInfC{$\vdash A \vee \neg A$}
+\end{prooftree}
+
+\begin{prooftree}
+  \AxiomC{}
+  \LeftLabel{($I_P$)}
+  \UnaryInfC{$P \vdash Q, P$}
+  \LeftLabel{($\to$R)}
+  \UnaryInfC{$\vdash P \to Q, P$}
+  \AxiomC{}
+  \LeftLabel{($I_P$)}
+  \UnaryInfC{$P \vdash P$}
+  \LeftLabel{($\to$L)}
+  \BinaryInfC{$(P \to Q) \to P \vdash P$}
+  \LeftLabel{($\to$R)}
+  \RightLabel{(Peirce 定律)}
+  \UnaryInfC{$\vdash ((P \to Q) \to P) \to P$}
+\end{prooftree}
 
 
 \subsection{回顾与小结}

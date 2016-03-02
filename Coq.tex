@@ -1,11 +1,20 @@
 \section{Coq入门}
 
-Foundation
-COC, Inductive, CoInductive, Universe - point out Russell paradox in type, leave prove as puzzle
+\subsection{简述}
+Coq是一个基于Calculus of Construction的扩展的Proof Assistant
 
-Example
+Coq的背后的原理加入的扩展有：
+
+1: 加入了Definition
+
+2：加入了Inductive，CoInductive data type
+
+3: 为了一致性，加入了Universe。也就是说，Type : Type在Coq种不成立，成立的是Type 0 : Type 1, Type 1 : Type 2, ... (有兴趣的读者可以试试看在Coq种开启-type-in-type使得Type : Type后证明矛盾)
+
+\subsection{例子}
 Stay as close to propositional logic/ higher order logic as possible.
 
+\subsection{证明手段}
 Trusted Computing Base
 Reason of formal verification
 
@@ -17,8 +26,3 @@ tauto, first order, meaning of formal verification, why tactic is OK
 
 LCF approach
 Help user. "Dialog like" property
-
-Book
-SF
-CPDT
-CoqArt
