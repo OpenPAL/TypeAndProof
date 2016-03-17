@@ -27,6 +27,9 @@
 
 
 \subsection{函子}
+
+
+\begin{defn} (\textbf{函子}，functor)
 函子可以理解为范畴之间的态射，范畴 $\mathcal{C}$ 与 $\mathcal{D}$ 之间的函子 $F : \mathcal{C} \rightarrow \mathcal{D}$ 定义为：
 \begin{itemize}
 	\item 对象之间的映射：对于 $\mathcal{C}$ 内的每一个对象 $A$，将其联系至 $\mathcal{D}$ 内的对象 $F\ A$
@@ -35,7 +38,55 @@
 	\[ F\ id_{A} = id_{F\ A}\]
 \end{itemize}
 
+
 \subsection{伴随性}
+
+\begin{defn} (\textbf{自然性}，naturality)
+更进一步地，我们可以定义，自然变化（natural transformation）为函子之间的 ``态射''。若 $F, G : \mathcal{C} \rightarrow \mathcal{D}$ 为范畴 $\mathcal{C}$ 与范畴 $\mathcal{D}$ 之间的函子，$F$ 与 $G$ 之间的自然变化 $t : F \rightarrow G$ 为一个由范畴 $\mathcal{C}$ 中任意对象 $A$ 所 index 的态射族：${\{t_A : F\ A \rightarrow G\ A\}}_{A\in Ob(\mathcal{C})}$。 这个态射族满足：对于范畴 $\mathcal{C}$ 中的所有态射 $f : A \rightarrow B$，使得以下图交换：
+
+\[\xymatrix{
+F\ A  \ar[d]^{t_a}  \ar[r]^{F\ f} & F\ B \ar[d]^{t_B}\\
+G\ A  \ar[r]^{G\ f} & G\ B
+}\]
+
+若对于所有的 $A \in Ob(\mathcal{C})$，$t_A$ 皆为同构，那么 $t$ 就被称为一个自然同构 (natural isomorphism)。
+\[ t : F \overset{\cong}\longrightarrow G \]\\
+
+伴随性可以理解为 Galois Connection 在范畴论之下的抽象。\\
+
+\subsubsection{Galois Connection}
+
+\begin{defn} (\textbf{$g$-逼近})
+考虑 $g : Q \rightarrow P$ 为两个偏序集之间的单调映射，对于 $x \in P$，$x$ 的 \textbf{$g$-逼近} 为一个元素 $y \in Q$，使得 $x \le g(y)$。
+$x$ 的 \textbf{最佳$g$-逼近} 为 $y \in Q$，使得
+\[ x \le g(y) \wedge \forall z \in Q . (x \le g(z) \Rightarrow y \le z) \]
+
+\begin{defn} (\textbf{Galois Connection})
+若存在 $f : P \rightarrow Q$，使得 
+\[ \forall x \in P, y \in Q, x \le g(y) \Longleftrightarrow f(x) \le y \]
+则 $f$ 为 $g$ 的\textbf{左伴随(left adjoint)}，$g$ 为 $f$ 的\textbf{右伴随(right adjoint)}。
+
+\begin{thm} $g : Q \rightarrow P$ 为两个偏序集之间的单调映射，若存在 $f : P \rightarrow Q$，使得对于任意 $x \in P$ 存在\textbf{最佳$g$-逼近} $f(x)$，则 $f$ 与 $g$ 之间存在 Galois Connection。\\
+
+证明：
+根据定义构造 $f(x) := \min \{\ y \in Q\ |\ x \le g(y)\ \}$
+
+(1) $x \le g(z) \Rightarrow f(x) \le z$.
+
+根据定义，因为 $ x \le g(z)$，所以 $g(z)$ 在集合 $\{\ y \in Q\ |\ x \le g(y)\ \}$ 中，根据构造，$f(x) \le z$。
+
+(2) $f(x) \le z \Rightarrow x \le g(z)$.
+
+根据构造，$x \le g(f(x))$，因为 $g$ 为单调映射以及 $f(x)$ 的构造，$g(f(x)) \le g(z)$。通过偏序的传递性，$x \le g(f(x)) \le g(z)$。$\qed$
+
+
+\begin{defn} （伴随函子 (adjoint functor)）
+
+现在偏序集 $P, Q$ 被抽象为范畴 $\mathcal{C}, \mathcal{D}$，单调函数 $f$ 与 $g$ 抽象为范畴之间的函子：$F : \mathcal{C} \rightarrow \mathcal{D}$，$G : \mathcal{D} \rightarrow \mathcal{C}$，$F$ 与 $G$ 为一对伴随函子若存在双射族 $\theta$,
+
+\[ \theta_{A,B} : \mathcal{C}(A,G(B)) \overset{\cong}\longrightarrow \mathcal{D}(F(A),B)\]
+则 $F$ 为 \text{左伴随}，$G$ 为 \text{右伴随}，记为 $(F \dashv G).f$
+
 
 \begin{defn}（笛卡尔闭范畴，CCC）
 
