@@ -1,81 +1,81 @@
-\section{���������߼�}
+\section{经典命题逻辑}
 
-����������Ҫ�ο��������߼�����������ϣ˳���͡�ģ���۵����������ˣ���
-
-
-����ע�⵽��ɢ��ѧ�ȼ����ϵ�γ̣��������߼��Ľ�������������ѧ/��ѧϵ���߼�ѧ�γ�ϵͳ���Ͻ�������ͨ�����������߼������������߼��еĻ�������������Gentzen ����Ȼ���Natural deduction����Ϊ������ֱ�������߼�֤��ϵͳ�����������߿�ѡ�����Ķ��˽ڡ�
+本节内容主要参考《数理逻辑基础》（赵希顺）和《模型论导引》（沈复兴）。
 
 
-\subsection{�����߼����﷨}
-
-�����߼���һ��\textbf{��ʽϵͳ}����(1)��ʽ���ţ�(2)����Щ�����γɺ�ʽ��ʽ����ƹ�ʽ���Ĺ���(3)�����ɹ�ʽ��ɵĹ�����(4)�ɹ�����һ�����ݷ���õ��Ķ�������ɡ���$L$��������ѡ�õ������߼���ʽϵͳ��
+笔者注意到离散数学等计算机系课程，对数理逻辑的讲解往往不如数学/哲学系中逻辑学课程系统、严谨。本节通过经典命题逻辑，介绍数理逻辑中的基本概念，最后引入Gentzen 的自然演绎（Natural deduction），为后续的直觉主义逻辑证明系统作基础。读者可选择性阅读此节。
 
 
-$L$�﷨������ʽ���ź��γɹ�������﷨������ɡ�$L$����ʽ�������������֣�
+\subsection{命题逻辑的语法}
+
+命题逻辑的一个\textbf{形式系统}是由(1)形式符号，(2)由这些符号形成合式公式（简称公式）的规则，(3)由若干公式组成的公理，(4)由公理经一定推演法则得到的定理所组成。以$L$记我们所选用的命题逻辑形式系统。
+
+
+$L$语法由由形式符号和形成规则（亦称语法规则）组成。$L$的形式符号有以下三种：
 
 \begin{tightenum}
-  \item \textbf{ԭ�������} $p_1, p_2,..., p_n$���ֽ������Ԫ����
-  \item \textbf{�߼����Ӵ�} $\neg$���񶨣���$\land$����ȡ����$\lor$ ����ȡ����$\to$���̺���
-  \item \textbf{����}��(��)
+  \item \textbf{原子命题符} $p_1, p_2,..., p_n$，又叫命题变元符号
+  \item \textbf{逻辑连接词} $\neg$（否定），$\land$（合取），$\lor$ （析取），$\to$（蕴涵）
+  \item \textbf{括号}，(，)
 \end{tightenum}
 
-$L$�������Ԫ�����п��������ÿ�������Ԫ���Ŵ�������һ�����Իش��ǻ��߷ǵ����⡣$L$�ķ�����ɷ��Ŵ������������γɹ�������޷��Ŵ���Ϊ$L$�ĺ�ʽ��ʽ��
+$L$的命题变元符号有可数多个，每个命题变元符号代表任意一个可以回答是或者非的命题。$L$的符号组成符号串，满足如下形成规则的有限符号串称为$L$的合式公式：
 
-\begin{defn} ��\textbf{��ʽ��ʽ}������ʽ����ƹ�ʽ��
+\begin{defn} （\textbf{合式公式}，良构式，简称公式）
 
-�����߼���ʽϵͳ�Ĺ�ʽ�ɵݹ鶨��Ϊ��
+命题逻辑形式系统的公式可递归定义为：
 \begin{tightenum}
- \item ÿһԭ������/�����Ԫ���ǹ�ʽ
- \item ���$A$�ǹ�ʽ����$(\neg A)$Ҳ�ǹ�ʽ
- \item ���$A, B$�ǹ�ʽ����$(A \land B), (A \lor B), (A \to B)$Ҳ�ǹ�ʽ
- \item ÿһ��ʽ����ͨ��(1)-(3)�����޲��õ�
+ \item 每一原子命题/命题变元都是公式
+ \item 如果$A$是公式，则$(\neg A)$也是公式
+ \item 如果$A, B$是公式，则$(A \land B), (A \lor B), (A \to B)$也是公式
+ \item 每一公式都是通过(1)-(3)经有限步得到
 \end{tightenum}
 \end{defn}
 
 \begin{rem}
 
-����Ķ����У�$A, B$������ʽϵͳ$L$�еķ��ţ�����ֻ����$A, B, C$������ʾ$L$�е����⹫ʽ�������
-$L$�еķ���Ϊ$L$�����ԣ���$L$���γɹ�ʽ�Ĺ�������﷨���򡣶���������˵��$L$���õ����Խ�\textbf{Ԫ����}������$A, B$��Ԫ���Եķ��š�����Ҫ���ע�⡢˼����
+上面的定义中，$A, B$不是形式系统$L$中的符号，我们只是用$A, B, C$等来表示$L$中的任意公式。如果称
+$L$中的符号为$L$的语言，则$L$中形成公式的规则叫作语法规则。而我们用来说明$L$所用的语言叫\textbf{元语言}，比如$A, B$是元语言的符号。读者要多加注意、思考。
 \end{rem}
 
 
-�ںܶ������У����Ӵ�$\lor, \land$��$L$�в����֣���Ϊ$\{\neg, \to \}$�Ѿ��������Ӵʵ���ȫ���������������������������Ӵʡ���$A, B$��$L$�еĹ�ʽ����$(A \land B)$�ɶ���Ϊ$(\neg (A \to \neg B)$��$(A \lor B)$����Ϊ$((\neg A) \to B)$��Ϊ�˺����������㣬�������¶����ʽ��ʽ��
+在很多文献中，连接词$\lor, \land$在$L$中不出现，因为$\{\neg, \to \}$已经构成连接词的完全集，可以用它们来定义其他连接词。设$A, B$是$L$中的公式，则$(A \land B)$可定义为$(\neg (A \to \neg B)$，$(A \lor B)$定义为$((\neg A) \to B)$。为了后面叙述方便，我们重新定义合式公式，
 
-\begin{defn} ��\textbf{��ʽ��ʽ}����ƹ�ʽ��
+\begin{defn} （\textbf{合式公式}，简称公式）
 
-�����߼���ʽϵͳ�Ĺ�ʽ�ɵݹ鶨��Ϊ��
+命题逻辑形式系统的公式可递归定义为：
 \begin{tightenum}
- \item ÿһԭ������/�����Ԫ���ǹ�ʽ
- \item ���$A$�ǹ�ʽ����$(\neg A)$Ҳ�ǹ�ʽ
- \item ���$A, B$�ǹ�ʽ����$(A \to B)$Ҳ�ǹ�ʽ
-\item ÿһ��ʽ����ͨ��(1)-(3)�����޲��õ�
+ \item 每一原子命题/命题变元都是公式
+ \item 如果$A$是公式，则$(\neg A)$也是公式
+ \item 如果$A, B$是公式，则$(A \to B)$也是公式
+\item 每一公式都是通过(1)-(3)经有限步得到
 \end{tightenum}
 \end{defn}
 
 
-Ϊ��ʹ��ʽ��д�����򵥶������������壬��ʱʡ�����������ţ�����Լ����
+为了使公式的写法更简单而不至引起歧义，有时省略最外层的括号，并且约定：
 \begin{tightenum}
-  \item $A \to B \to C$�ǹ�ʽ$(A \to (B \to C))$�ļ�д��
-  \item $\neg A \to B$��$((\neg A) \to B)$�ļ�д��
-  \item ���Ӵʵ����ȼ����ݼ�˳������Ϊ$\neg, \land, \lor, \to$
+  \item $A \to B \to C$是公式$(A \to (B \to C))$的简写，
+  \item $\neg A \to B$是$((\neg A) \to B)$的简写，
+  \item 连接词的优先级按递减顺序依次为$\neg, \land, \lor, \to$
 \end{tightenum}
 
 
-����Լ����ʽϵͳ$L$ֻ�п�����������Ԫ���ţ����$L$������п���������޳��ķ��Ŵ�������$L$������п��������ʽ��
+我们约定形式系统$L$只有可数多个命题变元符号，因此$L$中最多有可数多个有限长的符号串，这样$L$中最多有可数多个公式。
 
 
 
 
 
-\subsection{�����߼�������}
+\subsection{命题逻辑的语义}
 
 
 
-\subsubsection{��ֵ����ֵ��}
+\subsubsection{赋值、真值表}
 
-``��ʽ���Եķ��ű�����������ģ����ǿ��Ը���������"�����磬���ǰ�ԭ��������ţ����������Ԫ���ţ�$p_i$����Ϊһ�����⣬�����漴�٣�����ͳһ��1��ʾ``��"��0��ʾ``��"���������߼����Ӵ�$\neg, \land, \lor, \to$�ֱ����Ϊ``��"�� ``����"�� ``����" ``�̺�"
+``形式语言的符号本身是无意义的，但是可以赋予它意义"。例如，我们把原子命题符号（或者命题变元符号）$p_i$解释为一个命题，它非真即假（本节统一用1表示``真"，0表示``假"），而把逻辑连接词$\neg, \land, \lor, \to$分别解释为``非"、 ``并且"、 ``或者" ``蕴涵"
 
-``$A$����$B$"�����������$A$��$B$����٣�``����"���Կ���$\{ 0, 1\} \times \{ 0, 1\}$��$\{0, 1\}$�ϵĺ������������±������߼����Ӵʵĺ���
+``$A$并且$B$"的真假依赖于$A$和$B$的真假，``并且"可以看作$\{ 0, 1\} \times \{ 0, 1\}$到$\{0, 1\}$上的函数。我们用下表给出逻辑连接词的涵义
 
 
 
@@ -93,129 +93,129 @@ $L$�еķ���Ϊ$L$�����ԣ���$L$���γɹ�ʽ�Ĺ�������﷨���򡣶���������˵��$L$����
 \end{table}
 
 \begin{rem}
-��Ȼ��$\to$Ϊ``�̺�"���������ճ������е��÷���ͬ���ճ����Ե�``�̺�"��``����̺�"������``��������Բ��������Ͳ��ᱻ¼"��仰��������ģ���``������ӻ�ɣ��������������ε�"��仰��û�����壬��Ϊ���ӻ�ɺ���������״û�������ϵ��Ȼ����������$A$�Ǽٵģ���ô����$B$���滹�Ǽ٣�``$A \to B$"��Ϊ�档����``�̺�"��Ϊ``ʵ���̺�"��
+虽然称$\to$为``蕴涵"，但它和日常语言中的用法不同。日常语言的``蕴涵"是``因果蕴涵"，比如``如果他考试不及格，他就不会被录"这句话是有意义的，但``如果兔子会飞，则月亮是三角形的"这句话就没有意义，因为兔子会飞和月亮的形状没有因果关系。然而在这里，如果$A$是假的，那么不管$B$是真还是假，``$A \to B$"总为真。这种``蕴涵"称为``实质蕴涵"。
 
 
 \end{rem}
 
 
 \begin{thm}
-һ��ԭ��������ŵ�ȡֵȷ������ÿһ��ʽ����ֵҲ��Ψһȷ����
+一旦原子命题符号的取值确定，则每一公式的真值也就唯一确定。
 \end{thm}
 
 \begin{rem}
-���ĵ������������ܣ�Ҳ��ȥ�ܶඨ����֤�����̡������Ȥ�����߿ɲο�רҵ�鼮��
+本文的论述并不严密，也略去很多定理的证明过程。如果兴趣，读者可参考专业书籍。
 \end{rem}
 
-\begin{defn}��\textbf{������}��
+\begin{defn}（\textbf{可满足}）
 
-��$A$Ϊһ��ʽ��$v_i, v_2, ...$Ϊ��$A$��ԭ������ĸ�ֵ��������һ�鸳ֵ$v_i$ʹ��$A = 1$����$A$�ǿ�����ġ�
+设$A$为一公式，$v_i, v_2, ...$为对$A$中原子命题的赋值，若存在一组赋值$v_i$使得$A = 1$，则$A$是可满足的。
 
 \end{defn}
 
 
 \begin{note}
 
-�ж������߼���ʽ�Ƿ�����㣬��``�������������⣨SAT��"���ǵ�һ�����ֵ�NP-��ȫ���⡣SAT��⼼���������Ѿ�ȡ���ش�ͻ�ƣ�������Ӳ����֤��ȡ�ù㷺Ӧ�á�
+判断命题逻辑公式是否可满足，叫``布尔可满足问题（SAT）"，是第一个发现的NP-完全问题。SAT求解技术多年来已经取得重大突破，并在软硬件验证中取得广泛应用。
 \end{note}
 
-\begin{defn}��\textbf{����ʽ}������ʽ���߼���Ч��
+\begin{defn}（\textbf{永真式}，重言式，逻辑有效）
 
-������⸳ֵ������$A$����$A$������ġ�
+如果任意赋值都满足$A$，则$A$是永真的。
 
 \end{defn}
 
 \begin{thm}
-���$A$������ģ���$\neg A$�ǲ�������ġ�
+如果$A$是永真的，则$\neg A$是不可满足的。
 \end{thm}
 
 \begin{rem}
-���϶�����һЩ֤���߼���Ч�Ե��㷨�Ļ�������Stalmarck�㷨��
+以上定理是一些证明逻辑有效性的算法的基础，如Stalmarck算法。
 \end{rem}
 
 
 \begin{defn}
-��$\Gamma$���Թ�ʽ�������$\Gamma$��ÿ�������Ӽ����ǿ�����ģ���$\Gamma$�����������ġ�
+设$\Gamma$是以公式集，如果$\Gamma$的每个有穷子集都是可满足的，则$\Gamma$是有穷可满足的。
 \end{defn}
 
-\begin{thm}�������Զ�����
-��$\Gamma$��һ��ʽ������$\Gamma$�ǿ�����ĵ��ҽ���$\Gamma$������������
+\begin{thm}（紧致性定理）
+设$\Gamma$是一公式集，则$\Gamma$是可满足的当且仅当$\Gamma$是有穷可满足的
 
 \end{thm}
 
 \begin{rem}
-��������кܴ��ʵ�����壬�����ڶ�̬����ִ�й���Klee�У� ������������SAT����Ż���
+这个定理有很大的实用意义，比如在动态符号执行工具Klee中， 利用了它进行SAT求解优化。
 \end{rem}
 
 
-\begin{defn}��\textbf{������}��
+\begin{defn}（\textbf{语义后承}）
 
-��$\Gamma$Ϊһ��ʽ����$v$��һ����ֵ��
+设$\Gamma$为一公式集，$v$是一个赋值。
 \begin{tightenum}
- \item ���$v$����$\Gamma$��ÿ����ʽ�����$v$����$\Gamma$
- \item ��$A$��һ����ʽ���������$\Gamma$��ÿ����ֵ������$A$�����$A$��$\Gamma$�������У�����$\Gamma \models A$
+ \item 如果$v$满足$\Gamma$的每个公式，则称$v$满足$\Gamma$
+ \item 设$A$是一个公式，如果满足$\Gamma$的每个赋值都满足$A$，则称$A$是$\Gamma$的语义后承，记作$\Gamma \models A$
 \end{tightenum}
 \end{defn}
 
 
 \begin{note}
 
-���$\Gamma$�ǿռ������ǰ�$\emptyset \models A$�����$\models A$����Ȼ��$\models A$���ҽ���$A$������ģ�ͨ����$\Gamma \cup \{B \} \models A$�����$\Gamma, B \models A$
+如果$\Gamma$是空集，我们把$\emptyset \models A$简记作$\models A$，显然，$\models A$当且仅当$A$是永真的；通常把$\Gamma \cup \{B \} \models A$简记作$\Gamma, B \models A$
 
 \end{note}
 
 
-\subsubsection{ģ��������${}^*$}
+\subsubsection{模型论描述${}^*$}
 
-�����߼���ʽϵͳ$L$�е�ȫ�������Ԫ����Ϊ$p_1, p_2,...$��$L$��һ��\textbf{ģ��}$\mathcal{M}$��ȫ�������Ԫ��ɼ��ϵ�һ��\textbf{�Ӽ�}����$\mathcal{M} \subset \{p_1, p_2, ...\}$��$\mathcal{M}$�����ǿռ�����$\{p_1, p_2, ... \}$������
+命题逻辑形式系统$L$中的全体命题变元符号为$p_1, p_2,...$，$L$的一个\textbf{模型}$\mathcal{M}$是全体命题变元组成集合的一个\textbf{子集}，即$\mathcal{M} \subset \{p_1, p_2, ...\}$。$\mathcal{M}$可以是空集或者$\{p_1, p_2, ... \}$自身。
 
-$L$�����⹫ʽ��ĳ��ģ���ж���һ��\textbf{��ֵ}��``��"����``��"����ʽ$A$�����ĳ��ģ��$\mathcal{M}$��\textbf{ȡֵ}Ϊ�棬����$\mathcal{M} \models A$��
+$L$中任意公式在某个模型中都有一个\textbf{赋值}：``真"或者``假"。公式$A$如果在某个模型$\mathcal{M}$中\textbf{取值}为真，记作$\mathcal{M} \models A$。
 
 \begin{defn}
 
-$L$�Ĺ�ʽ$A$��ģ��$\mathcal{M}$�е�\textbf{ȡֵ}���ɶ������£�
+$L$的公式$A$在模型$\mathcal{M}$中的\textbf{取值}归纳定义如下：
 
 \begin{tightenum}
-  \item ��$A$��ĳ�������Ԫ$p_i$����$\mathcal{M} \models A$���ҽ���$p_i \in \mathcal{M}$
-  \item ��$A$��$\neg B$����$\mathcal{M} \models A$���ҽ���$\mathcal{M} \nvDash B$����$B$��$\mathcal{M}$�е�ȡֵ��Ϊ��
-  \item ��$A$��$B \to C$����$\mathcal{M} \models A$���ҽ���$\mathcal{M} \nvDash B$��$\mathcal{M} \models C$
+  \item 若$A$是某个命题变元$p_i$，则$\mathcal{M} \models A$当且仅当$p_i \in \mathcal{M}$
+  \item 若$A$是$\neg B$，则$\mathcal{M} \models A$当且仅当$\mathcal{M} \nvDash B$，即$B$在$\mathcal{M}$中的取值不为真
+  \item 若$A$是$B \to C$，则$\mathcal{M} \models A$当且仅当$\mathcal{M} \nvDash B$或$\mathcal{M} \models C$
 \end{tightenum}
 
 \end{defn}
 
 
-\begin{defn}��\textbf{������}��
+\begin{defn}（\textbf{可满足}）
 
-��ʽ$A$�ǿ�����ģ���������ٴ���һ��ģ�͡�
+公式$A$是可满足的，如果它至少存在一个模型。
 \end{defn}
 
 
 
-\begin{defn}��\textbf{����ʽ}������ʽ���߼���Ч��Tautology��
+\begin{defn}（\textbf{永真式}，重言式，逻辑有效，Tautology）
 
-��ʽ$A$������ģ��������ÿ��������Ͷ���һ��ģ��
-
-\end{defn}
-
-\begin{defn}��\textbf{������}��
-
-���$A$��ÿһ��ģ�Ͷ���$B$��ģ�ͣ����$B$��$A$��һ�������У�����$A \models B$�����仰˵��������κ�һ�����帳ֵ�£�ֻҪ����$A$Ϊ�棬$B$һ��Ϊ�棬��ô$B$��$A$�������С�
-
-�����еĸ���Ҳ�����������⼯�Ϻ͵�������֮�䡣������κ�һ�����帳ֵ�£�ֻҪ���⼯��$\Sigma$�е�ÿһ�����ⶼΪ�棬��ô$A$��һ��Ϊ�棬���Ǿ�˵$A$��$\Sigma$�������У���Ϊ$\Sigma \models A$
+公式$A$是永真的，如果它的每个语义解释都是一个模型
 
 \end{defn}
 
+\begin{defn}（\textbf{语义后承}）
+
+如果$A$的每一个模型都是$B$的模型，则称$B$是$A$的一个语义后承，记作$A \models B$。换句话说：如果在任何一种语义赋值下，只要命题$A$为真，$B$一定为真，那么$B$是$A$的语义后承。
+
+语义后承的概念也可以用在命题集合和单个命题之间。如果在任何一种语义赋值下，只要命题集合$\Sigma$中的每一个命题都为真，那么$A$就一定为真，我们就说$A$是$\Sigma$的语义后承，记为$\Sigma \models A$
+
+\end{defn}
 
 
-\subsection{��������ϵͳ}
 
-��$A, B, C$�������⹫ʽ�����ھ��������߼����߼����Ӵʿ��Ի����壬��������ֻ��$\to$��$\neg$��
+\subsection{公理推演系统}
 
-\begin{defn}��\textbf{Hilbert����ϵͳ}��
+设$A, B, C$代表任意公式。由于经典命题逻辑中逻辑连接词可以互定义，下面我们只用$\to$和$\neg$。
 
-Hilbertϵͳ����������ģʽ��һ�����ݹ���MP����ɣ�
+\begin{defn}（\textbf{Hilbert演绎系统}）
 
-\textbf{����ģʽ}
+Hilbert系统由三个公理模式加一个推演规则（MP）组成：
+
+\textbf{公理模式}
 
 \begin{tightenum}
   \item $(A \to (B \to A))$
@@ -224,7 +224,7 @@ Hilbertϵͳ����������ģʽ��һ�����ݹ���MP����ɣ�
 \end{tightenum}
 
 
-\textbf{�������(MP)}
+\textbf{分离规则(MP)}
 
 $$\frac {A, A \to B } {B} $$
 
@@ -235,55 +235,55 @@ $$\frac {A, A \to B } {B} $$
 
 
 \begin{rem}
-����$A,B,C$�������⹫ʽ�������ÿһ������ʾ������������
+由于$A,B,C$代表任意公式，上面的每一条都表示无穷多个公理。
 \end{rem}
 
 
-\begin{defn}(\textbf{��ʽ֤��}) �ƹ�ʽ����������
+\begin{defn}(\textbf{形式证明}) 称公式的有穷序列
 
 $$A_1, A_2, ... , A_n$$
 
-��һ����ʽ֤�������֤���������������$i, 1 \leq i \leq n$����������֮һ������
+是一个形式证明（简称证明），如果对任意$i, 1 \leq i \leq n$，都有下列之一成立：
 \begin{tightenum}
- \item $A_i$�ǹ�������
- \item ����$j_1, j_2 < i$ʹ��$A_i$��$A_{j_1}$��$A_{j_2}$ͨ����������Ƴ��ģ�����˵���ǹ��ڷ�������ֱ�Ӻ�У�
+ \item $A_i$是公理，或
+ \item 存在$j_1, j_2 < i$使得$A_i$是$A_{j_1}$和$A_{j_2}$通过分离规则推出的（或者说，是关于分离规则的直接后承）
 \end{tightenum}
 \end{defn}
 
-һ����ʽ֤���ĳ����Ǹ�֤��������ʽ�ĸ�����
+一个形式证明的长度是该证明所含公式的个数。
 
 
 
-\begin{defn} (\textbf{��ʽ����})
+\begin{defn} (\textbf{形式定理})
 
-�ƹ�ʽ$A$��һ����ʽ��������ƶ��������������һ����ʽ֤��$A_1, ..., A_n$ʹ��$A = A_n$����ʱҲ��
-$A$ ����ʽ��֤�ġ�
+称公式$A$是一个形式定理（简称定理），如果存在一个形式证明$A_1, ..., A_n$使得$A = A_n$。此时也称
+$A$ 是形式可证的。
 
 \end{defn}
 
 
-\begin{defn} (\textbf{��ʽ����}��
+\begin{defn} (\textbf{形式推演}）
 
-��$\Gamma$����һЩ��ʽ��ɵļ��ϣ��ƹ�ʽ����
+设$\Gamma$是由一些公式组成的集合，称公式序列
 $$A_1, A_2,..., A_n$$
-��һ����$\Gamma$�й�ʽ��������ʽ���ݣ����������$i, 1 \leq i \leq n$����������֮һ������
+是一个由$\Gamma$中公式出发的形式推演，如果对任意$i, 1 \leq i \leq n$，都有下列之一成立：
 \begin{tightenum}
- \item $A_i \in \Gamma$��
- \item $A_i$��һ������
- \item ����$j_1, j_2 < i$ʹ��$A_i$��$A_{j_1}$��$A_{j_2}$���ڷ������MP��ֱ�Ӻ�С�
+ \item $A_i \in \Gamma$，
+ \item $A_i$是一公理；
+ \item 存在$j_1, j_2 < i$使得$A_i$是$A_{j_1}$和$A_{j_2}$关于分离规则MP的直接后承。
 \end{tightenum}
 \end{defn}
 
-���������$\Gamma$����������ʹ��$A$�Ǹ����ݵ����һ����ʽ�����$A$����$\Gamma$�Ƴ�������˵��$\Gamma$�Ƴ�$A$����
-��Ϊ$\Gamma \vdash A$������$\Gamma$�жϹ�ʽ��Ϊ�ٶ���ʽ��
+如果存在由$\Gamma$出发的推演使得$A$是该推演的最后一个公式，则称$A$可由$\Gamma$推出（或者说，$\Gamma$推出$A$），
+记为$\Gamma \vdash A$。常把$\Gamma$中断公式称为假定公式。
 
 
 \begin{note}
 
 \begin{tightenum}
-  \item ���$\Gamma$�ǿռ�����$\Gamma = \emptyset$�������ǰ�$\emptyset \vdash A$��Ϊ$\vdash A$����Ȼ��$\vdash A$���ҽ���$A$ ����ʽ������
-  \item ����$\Gamma = {B_1,...,B_k}$�����ǳ���$\Gamma \vdash A$д��$B_1,...,B_k \vdash A$
-  \item ���ǰ�$\Gamma \cup {B} \vdash A$��Ϊ$\Gamma, B \vdash A$
+  \item 如果$\Gamma$是空集，即$\Gamma = \emptyset$，则我们把$\emptyset \vdash A$记为$\vdash A$。显然，$\vdash A$当且仅当$A$ 是形式定理。
+  \item 假设$\Gamma = {B_1,...,B_k}$，我们常把$\Gamma \vdash A$写成$B_1,...,B_k \vdash A$
+  \item 我们把$\Gamma \cup {B} \vdash A$记为$\Gamma, B \vdash A$
 \end{tightenum}
 
 \end{note}
@@ -291,9 +291,9 @@ $$A_1, A_2,..., A_n$$
 
 
 
-\begin{thm}��\textbf{һ���Զ���}��
+\begin{thm}（\textbf{一致性定理}）
 
-�����������ʽ������������ġ�
+命题演算的形式定理都是永真的。
 \end{thm}
 
 
@@ -303,40 +303,40 @@ $$A_1, A_2,..., A_n$$
 
 \begin{exmp}
 
-֤��$\emptyset \vdash p \to p$����$p \to p$��ϵͳ�ڿ�֤��$p \to p$�Ƕ�����
+证明$\emptyset \vdash p \to p$，即$p \to p$在系统内可证，$p \to p$是定理。
 
-���Ǹ��������������У�֤������
+我们给出如下命题序列（证明）：
 \begin{tightenum}
- \item $ P \to ((P \to P) \to P)$ ������ 1��
- \item $(P \to ((P \to P) \to P)) \to ((P \to (P \to P)) \to (P \to P))$ ������ 2��
- \item $((P \to (P \to P)) \to (P \to P))$ ��1��2��MP����
- \item  $P \to (P \to P)$ ������ 1��
- \item  $P \to P$����4��3��MP����
+ \item $ P \to ((P \to P) \to P)$ （公理 1）
+ \item $(P \to ((P \to P) \to P)) \to ((P \to (P \to P)) \to (P \to P))$ （公理 2）
+ \item $((P \to (P \to P)) \to (P \to P))$ （1，2，MP规则）
+ \item  $P \to (P \to P)$ （公理 1）
+ \item  $P \to P$，（4，3，MP规则）
 \end{tightenum}
 
 
 \end{exmp}
 
 
-\subsection{��Ȼ����ϵͳ}
+\subsection{自然演绎系统}
 
-Hilbertϵͳ���ںܶ�ȱ�㣺֤�������߳���������ʵ��������ֱ�����������о�һ���Ե����⡣1935�꣬Gentzen�������Ȼ����(Natural deduction)�����ʽ����(Sequent Calculus)���������߼�������֤���۲����˼�����Զ��Ӱ�졣�Ƚ�����Ȼ����ϵͳ��
+Hilbert系统存在很多缺点：证明过程冗长、不符合实际推理的直觉、不利于研究一致性等问题。1935年，Gentzen提出了自然演绎(Natural deduction)和相继式演算(Sequent Calculus)，对数理逻辑尤其是证明论产生了及其深远的影响。先介绍自然演绎系统。
 
 
-��Ȼ����ϵͳ�������ص㣺
+自然演绎系统有以下特点：
 
 \begin{tightenum}
-\item ÿ���߼����Ӵʶ�Ӧ����������ȥ�������ݵĹ��̻���``����''(Assumption)���߼����Ӵʶ�Ӧ�Ĺ���
-\item �������У�����һ�����򣬼�����Ա�``����''(introduction, opening)��``����''(cancelation, closing, discharge)���ڱ�����֮ǰ�ü������ʹ�ö��
-\item �����ݵ�������п���(δ������)�ļ�����뱻������ʣ�µļ���Խ�٣������Ҳ�ɿ�
+\item 每个逻辑连接词对应引入规则和消去规则，推演的过程基于``假设''(Assumption)和逻辑连接词对应的规则。
+\item 在推演中，根据一定规则，假设可以被``导入''(introduction, opening)和``消耗''(cancelation, closing, discharge)，在被消耗之前该假设可以使用多次
+\item 在推演的最后，所有开放(未被消耗)的假设必须被声明，剩下的假设越少，则结论也可靠
 \end{tightenum}
 
 
-����������������߼�����Ȼ����֤��ϵͳ��
+下面给出经典命题逻辑的自然演绎证明系统。
 
 $$A, B ::= A \to B \ | \ A \land B \ | \ A \lor B \ | \ \neg A \ | \ \bot$$
 
-\textbf{$\land$����}����ȡ���룩�����$A$��$B$�ǿ�֤�ģ���ô$A \land B$�ǿ�֤�ġ� 
+\textbf{$\land$引入}（合取引入）：如果$A$和$B$是可证的，那么$A \land B$是可证的。 
 
 \begin{prooftree}
   \AxiomC{$A$}
@@ -346,7 +346,7 @@ $$A, B ::= A \to B \ | \ A \land B \ | \ A \lor B \ | \ \neg A \ | \ \bot$$
 \end{prooftree}
 
 
-\textbf{$\land$��ȥ}����ȡ��ȥ�������$A \land B$�ǿ�֤�ģ���ô$A$��$B$���ǿ�֤�ġ� 
+\textbf{$\land$消去}（合取消去）：如果$A \land B$是可证的，那么$A$和$B$都是可证的。 
 
 \begin{prooftree}
   \AxiomC{$A \land B$}
@@ -362,7 +362,7 @@ $$A, B ::= A \to B \ | \ A \land B \ | \ A \lor B \ | \ \neg A \ | \ \bot$$
 
 
 
-\textbf{$\lor$����}����ȡ���룩�����$A$��$B$�ǿ�֤�ģ���ô$A \lor B$�ǿ�֤�ġ�
+\textbf{$\lor$引入}（析取引入）：如果$A$或$B$是可证的，那么$A \lor B$是可证的。
 
 \begin{prooftree}
   \AxiomC{$A$}
@@ -378,7 +378,7 @@ $$A, B ::= A \to B \ | \ A \land B \ | \ A \lor B \ | \ \neg A \ | \ \bot$$
 
 
 
-\textbf{$\lor$��ȥ}����ȡ��ȥ�������$A \lor B$��֤���һ��ڼ���$A$��$B$���н���$C$�������$C$��֤
+\textbf{$\lor$消去}（析取消去）：如果$A \lor B$可证，且基于假设$A$和$B$都有结论$C$，则可以$C$可证
 
 \begin{prooftree}
    \AxiomC{$A \lor B$}
@@ -393,7 +393,7 @@ $$A, B ::= A \to B \ | \ A \land B \ | \ A \lor B \ | \ \neg A \ | \ \bot$$
 \end{prooftree}
 
 
-\textbf{$\to$����}���̺����룩��������ڼ���$A$�н���$B$����ɵ�$A \to B$
+\textbf{$\to$引入}（蕴涵引入）：如果基于假设$A$有结论$B$，则可得$A \to B$
 
 \begin{prooftree}
 \AxiomC{[$A$]}
@@ -404,7 +404,7 @@ $$A, B ::= A \to B \ | \ A \land B \ | \ A \lor B \ | \ \neg A \ | \ \bot$$
 
 \end{prooftree}
 
-\textbf{$\to$��ȥ}���̺���ȥ�������$A \to B$��$A$�ǿ�֤�ģ���$B$�ǿ�֤�ġ��ȼ���Hilbertϵͳ��MP����
+\textbf{$\to$消去}（蕴涵消去）：如果$A \to B$和$A$是可证的，则$B$是可证的。等价于Hilbert系统的MP规则。
 
 \begin{prooftree}
   \AxiomC{$A \to B$}
@@ -415,7 +415,7 @@ $$A, B ::= A \to B \ | \ A \land B \ | \ A \lor B \ | \ \neg A \ | \ \bot$$
 
 
 
-\textbf{$\neg$����} �������룩
+\textbf{$\neg$引入} （否定引入）
 
 \begin{prooftree}
 \AxiomC{[$A$]}
@@ -427,7 +427,7 @@ $$A, B ::= A \to B \ | \ A \land B \ | \ A \lor B \ | \ \neg A \ | \ \bot$$
 \end{prooftree}
 
 
-\textbf{$\neg$��ȥ}������ȥ��
+\textbf{$\neg$消去}（否定消去）
 
 \begin{prooftree}
   \AxiomC{$A$}
@@ -438,7 +438,7 @@ $$A, B ::= A \to B \ | \ A \land B \ | \ A \lor B \ | \ \neg A \ | \ \bot$$
 
 
 
-\textbf{Ex falsum quodlibet}����ì�ܿ��Ե����κ�����
+\textbf{Ex falsum quodlibet}：从矛盾可以导出任何事物
 
 \begin{prooftree}
   \AxiomC{$\bot$}
@@ -462,7 +462,7 @@ $$A, B ::= A \to B \ | \ A \land B \ | \ A \lor B \ | \ \neg A \ | \ \bot$$
 
 \begin{exmp}
 
-����Ȼ����ϵͳ�����ݡ��������ݲ������߱�������ʹ�õĹ���
+在自然演绎系统中推演。（在推演步骤的左边标上了所使用的规则）
 $$ A \land B \vdash_{\mathrm{ND}} B \land A$$
 
 \begin{prooftree}
@@ -483,11 +483,11 @@ $$ A \land B \vdash_{\mathrm{ND}} B \land A$$
 
 
 \begin{exmp}
-�ٿ��������
+再看这个例子
 
 $$ \vdash_{\mathrm{ND}} A \to \neg \neg A$$
 
-���Ǹ�������˺�``1''��``2''������������ݹ�����������ĳ���裬�����ұ�д�ϸü���ı�š�
+我们给假设标了号``1''，``2''，并且如果推演过程中消耗了某假设，则在右边写上该假设的标号。
 
 \begin{prooftree}
   \AxiomC{$[A]^2$}
@@ -518,36 +518,36 @@ $$ \vdash_{\mathrm{ND}} A \to \neg \neg A$$
 (3) $\vdash_{\mathrm{ND}} A \lor neg A$
 \end{exerc}
 
-\subsection{���ʽ����}
+\subsection{相继式演算}
 
-\subsubsection{���}
+\subsubsection{简介}
 
-���ʽ��������Ȼ�����������Ҫ���ڡ�����ĳ������ĳ���ۡ��Ĵ���������Ȼ�����У���һ�������Ƿ����߼�֤���Ĳ��ֵĶ�������ĳһ�������Ӧ���ɲμ�ǰ�Ķ���Ȼ����ϵͳ��������������������ʽ�����У���һ������Ϊ������ÿһ�����ʽ��ֱ�ӱ�ʾ�������������ĺô���ʹ����������ֱ�ۡ����⣬�����õ������������õ��������߼����ӴʵĶ�ż��ϵ��
+相继式演算与自然演绎的区别主要在于“基于某假设有某结论”的处理。在自然演绎中，这一个假设是放在逻辑证明的部分的顶部，与某一规则相对应（可参见前文对自然演绎系统规则的描述）。而在相继式演算中，这一假设作为条件在每一个相继式中直接表示出来。这样做的好处是使用起来更加直观。另外，这样得到的演绎规则更好地体现了逻辑连接词的对偶关系。
 
-\subsubsection{���ʽ}
+\subsubsection{相继式}
 
-ÿ�����ʽ����������ʽ��
+每个相继式具有如下形式：
 
 \[ A_1, A_2, \dots, A_n \vdash B_1, B_2, \dots B_m\]
 
-���У�$A_i$��$B_i$ ��Ϊ��ʽ��$A_i$ ��Ϊ�������� $B_i$ ��Ϊ���ۡ�ÿ��������ÿ�����۵�˳�����֡��ر�ģ�$\vdash$ �����඼����û���κι�ʽ����û�н���ʱ���Ҳ������������������û�н���ʱ�����ʽ�ڴ��������Ƴ�ì��ʱ������
+其中，$A_i$、$B_i$ 均为公式。$A_i$ 称为条件，而 $B_i$ 称为结论。每个条件、每个结论的顺序不区分。特别的，$\vdash$ 的两侧都可以没有任何公式。当没有结论时，右侧结论无条件成立；当没有结论时，相继式在从条件可推出矛盾时成立。
 
-\subsubsection{�������}
+\subsubsection{演绎规则}
 
-Ҫ֤��һ�����ʽ�����Ǵ�������������������������£��Ƶ����Ҳ����н����е�����һ���������������������е㲻����ֱ��ӡ�󣬵��Ǻ������Ǿͻᷢ��������������ʽ��������������ʹ������Ȼ�������ƣ�Ҳ���ɹ�����ɣ����ǲ�������ĳһ��֤�������ж���ļ�����һ����������롢��ȥ���������Ҳ����������߼����򣬷ֱ��Ӧ���������� $\vdash$ ��ࡢ�Ҳ���߼����Ӵʡ�
+要证明一个相继式，就是从左侧的所有条件都成立的情况下，推导出右侧所有结论中的任意一个成立。这样做看起来有点不符合直观印象，但是后面我们就会发现它的妙处。在相继式演算中演绎规则的使用与自然演绎类似，也是由规则组成，但是不存在在某一子证明过程中多出的假设这一概念，而且引入、消去规则的区分也变成了左、右逻辑规则，分别对应处理出现在 $\vdash$ 左侧、右侧的逻辑连接词。
 
-����������������߼������ʽ����֤�����������߼���ʽ���﷨���£�
+下面给出经典命题逻辑的相继式演算证明规则。命题逻辑公式的语法如下：
 
 \[ P ::= P \rightarrow P\ |\ P \vee P\ |\ P \wedge P\ |\ \neg P\ |\ \bot \]
 
-���ŵ�ʹ�����£�
+符号的使用如下：
 
 \begin{enumerate}
-\item $A$ �� $B$ �����������߼��Ĺ�ʽ
-\item $\Gamma$��$\Delta$ �����⹫ʽ���У�������������ʽ������ 0 ����
+\item $A$ 和 $B$ 是任意命题逻辑的公式
+\item $\Gamma$、$\Delta$ 是任意公式序列，代表任意多个公式（包括 0 个）
 \end{enumerate}
 
-��ʼ���ʽ (Initial sequent)�����κι�ʽΪ����������֤������������ʼ���ʽ�����ˡ���������������Ƴ��Ҳ�������ۡ���һ�㡣Ϊ�˷���֪���������ĸ���ʽ�����Ƕ� $I$ ����ǡ�
+初始相继式 (Initial sequent)：以任何公式为条件，可以证明它自身。初始相继式体现了“由左侧所有条件推出右侧任意结论”这一点。为了方便知道是用了哪个公式，我们对 $I$ 做标记。
 
 \begin{prooftree}
   \AxiomC{}
@@ -555,7 +555,7 @@ $$ \vdash_{\mathrm{ND}} A \to \neg \neg A$$
   \UnaryInfC{$ \Gamma, A \vdash \Delta,  A $}
 \end{prooftree}
 
-�߼��� (Cut)��������֤���Ľ��ۿ�������������
+逻辑割 (Cut)：从条件证明的结论可以用做条件。
 
 \begin{prooftree}
   \AxiomC{$\Gamma \vdash \Delta , A$}
@@ -564,7 +564,7 @@ $$ \vdash_{\mathrm{ND}} A \to \neg \neg A$$
   \BinaryInfC{$\Gamma \vdash \Delta$}
 \end{prooftree}
 
-���¹�����������Ʋ���׸�����������ƾ�Ϊ �߼����Ӵ� + L/R ����ʽ���ֱ��������߼����Ӵʵ���/�ҹ���
+以下规则的中文名称不再赘述，符号名称均为 逻辑连接词 + L/R 的形式，分别代表这个逻辑连接词的左/右规则。
 
 \begin{multicols}{2}
 
@@ -604,7 +604,7 @@ $$ \vdash_{\mathrm{ND}} A \to \neg \neg A$$
 
 \end{multicols}
 
-��ϸ�۲����������򣬿��Է��֣��߼����Ӵ� $\wedge$ �� $\vee$ �Ķ�ż��ϵ�����ʽ�����кܺõ������˳��� ------ ����������ǳ��Գơ�
+仔细观察这两条规则，可以发现，逻辑连接词 $\wedge$ 和 $\vee$ 的对偶关系在相继式演算中很好地体现了出来 ------ 这四条规则非常对称。
 
 \begin{multicols}{2}
 
@@ -648,15 +648,15 @@ $$ \vdash_{\mathrm{ND}} A \to \neg \neg A$$
   \UnaryInfC{$\Gamma, \bot \vdash \Delta$}
 \end{prooftree}
 
-ʣ������߼��̺��ͷ񶨵Ĺ����Լ�����������Ƴ��������� (Ex falso quodlibet)������û�и��� $\neg$R������Ϊ����û���õģ��� $\vdash$ �Ҳ�ȥ��������֤���Ľ��ۣ����������ʽ�ܷ�֤����Ӱ�졣
+剩余的是逻辑蕴含和否定的规则，以及假命题可以推出任意命题 (Ex falso quodlibet)。这里没有给出 $\neg$R，是因为它是没有用的：在 $\vdash$ 右侧去掉不可能证明的结论，对整个相继式能否证明无影响。
 
-\subsubsection{���ʽ�������߼��еļ򵥽���}
+\subsubsection{相继式在命题逻辑中的简单解释}
 
-һ�����ʽ $ A_1, A_2, \dots , A_n \vdash B_1, B_2, \dots, B_m$ �����൱�������߼���� $ (A_1 \wedge \dots \wedge A_n) \to (B_1 \vee \dots \vee B_m) $���ھ����߼��£������൱�� $ \neg A_1 \vee \dots \vee \neg A_n \vee B_1 \vee \dots \vee B_m$ ���� $ \neg (A_1 \wedge \dots \wedge A_n \wedge \neg B_1 \wedge \dots \wedge \neg B_m)$���� De Morgan ���� $ \neg ( X \vee Y ) \leftrightarrow \neg X \wedge \neg Y$ �� $ \neg (X \wedge Y) \leftrightarrow \neg X \vee \neg Y$�����Ǿʹ��¿�����ᵽ�߼����ӴʵĶ�ż�������ʽ�����г��ֵ�����ں���
+一个相继式 $ A_1, A_2, \dots , A_n \vdash B_1, B_2, \dots, B_m$ 大致相当于命题逻辑里的 $ (A_1 \wedge \dots \wedge A_n) \to (B_1 \vee \dots \vee B_m) $。在经典逻辑下，这又相当于 $ \neg A_1 \vee \dots \vee \neg A_n \vee B_1 \vee \dots \vee B_m$ 或者 $ \neg (A_1 \wedge \dots \wedge A_n \wedge \neg B_1 \wedge \dots \wedge \neg B_m)$。由 De Morgan 定律 $ \neg ( X \vee Y ) \leftrightarrow \neg X \wedge \neg Y$ 和 $ \neg (X \wedge Y) \leftrightarrow \neg X \vee \neg Y$，我们就大致可以体会到逻辑连接词的对偶性在相继式演算中出现的深层内涵。
 
-\subsubsection{���ʽ�����е�֤������}
+\subsubsection{相继式演算中的证明过程}
 
-ע�⵽���� $I$ �� Cut ���⣬�����Ĺ����ʹ���ʽ�м�����һ���߼����Ӵʣ�����������ʹ�� $I$ �ĵط���֤���Ͳ���Ҫ���������ˡ����ң�Gentzen ֤�������ǿ����ڲ�ʧȥ֤������������°� Cut ����ȥ�� (Cut-elimination)�����ԣ������߼��У����ʽ�����е�֤���ͱ�÷ǳ��� ------ ֻ��Ҫ��ÿ���߼����Ӵʶ���ȥ��Ȼ����ʣ�µ������Ӵʵ����ʽ���ҵ�ƥ��Ĺ�ʽ��ʹ�ù��� $I$ �Ϳ����ˡ����¾�������
+注意到除了 $I$ 和 Cut 以外，其它的规则均使相继式中减少了一个逻辑连接词，而遇到可以使用 $I$ 的地方，证明就不需要继续向上了。而且，Gentzen 证明了我们可以在不失去证明能力的情况下把 Cut 规则去掉 (Cut-elimination)。所以，命题逻辑中，相继式演算中的证明就变得非常简单 ------ 只需要把每个逻辑连接词都消去，然后在剩下的无连接词的相继式中找到匹配的公式，使用规则 $I$ 就可以了。以下举数例：
 
 \begin{prooftree}
   \AxiomC{}
@@ -665,7 +665,7 @@ $$ \vdash_{\mathrm{ND}} A \to \neg \neg A$$
   \LeftLabel{($\neg$R)}
   \UnaryInfC{$\vdash A, \neg A$}
   \LeftLabel{($\vee$R)}
-  \RightLabel{(������)}
+  \RightLabel{(排中律)}
   \UnaryInfC{$\vdash A \vee \neg A$}
 \end{prooftree}
 
@@ -681,65 +681,65 @@ $$ \vdash_{\mathrm{ND}} A \to \neg \neg A$$
   \LeftLabel{($\to$L)}
   \BinaryInfC{$(P \to Q) \to P \vdash P$}
   \LeftLabel{($\to$R)}
-  \RightLabel{(Peirce ����)}
+  \RightLabel{(Peirce 定律)}
   \UnaryInfC{$\vdash ((P \to Q) \to P) \to P$}
 \end{prooftree}
 
 
-\subsection{�ع���С��}
+\subsection{回顾与小结}
 
 
-�����߼��ж���ʽϵͳ���о������෽�������巽�����﷨���������巽���ֳ�ģ���۷������о���������壨��������������ֵ��������ʽ�����棩�������еȡ��﷨�������֤���۷������о���ʽ����ϵͳ����ʽ�����ȡ���һ��˵���ǣ����߼�ϵͳ���о������ִ�ͳ�����崫ͳ���﷨��ͳ��
+数理逻辑中对形式系统的研究有两类方法：语义方法和语法方法。语义方法又称模型论方法，研究命题的语义（即命题的意义和真值）、重言式（永真）、语义后承等。语法方法亦称证明论方法，研究形式推演系统、形式定理等。另一种说法是，对逻辑系统的研究有两种传统，语义传统和语法传统。
 
-���磬ʵ���̺�����$\to$�����ھ䷨ϵͳ����Hilbert��ǰ����������ȫ�̻��������������̻����ͷ�$\neg$�Ĺ�ϵ����������ϵͳ�У�����˵��$\Sigma \models P \to Q$��ǰ����$\Sigma \models Q$����$\Sigma \models \neg P$�����仰˵�����һ��ʵ���̺����������������˵��ǰ����$P$��Ϊ�������£������$Q$��������Ϊ�١�
-
-
-�����Ƚ������к��﷨���䷨����С�������������һ�����⼯�Ϻ�һ�����������������У�semantic consequence������$\models$��ʾ��������κ�һ�����帳ֵ�£�ֻҪ���⼯��$\Sigma$�е�ÿһ�����ⶼΪ�棬��ô$A$��һ��Ϊ�棬���Ǿ�˵$A$��$\Sigma$�������У���Ϊ$\Sigma \models A$�� �䷨��У�syntactic consequence������$\vdash$��ʾ��$\Sigma \vdash A$��ʾ$A$ ����ͨ���䷨֤���ķ�ʽ�����⼯$\Sigma$�еó���������һ���������У�����ÿ������Ҫô�ǹ�����Ҫô��ǰ�ᣬҪô��ǰ�������ͨ��֤������õ��������һ����$A$�����������г�Ϊһ��֤����
+例如，实质蕴涵符号$\to$可以在句法系统中由Hilbert的前两条公理完全刻画（第三条公理刻画它和否定$\neg$的关系）。而语义系统中，我们说：$\Sigma \models P \to Q$当前仅当$\Sigma \models Q$或者$\Sigma \models \neg P$。换句话说：如果一个实质蕴涵条件句成立，就是说，前件（$P$）为真的情况下，后件（$Q$）不可能为假。
 
 
-�ص�֮ǰ�����ӣ�$\emptyset \vdash P \to P$���䷨֤���������£�
+再来比较语义后承和语法（句法）后承。考虑它们连接一个命题集合和一个命题的情况。语义后承（semantic consequence），用$\models$表示，如果在任何一种语义赋值下，只要命题集合$\Sigma$中的每一个命题都为真，那么$A$就一定为真，我们就说$A$是$\Sigma$的语义后承，记为$\Sigma \models A$。 句法后承（syntactic consequence），用$\vdash$表示。$\Sigma \vdash A$表示$A$ 可以通过句法证明的方式从命题集$\Sigma$中得出。即存在一个命题序列，其中每个命题要么是公理，要么是前提，要么由前面的命题通过证明规则得到，且最后一个是$A$。该命题序列称为一个证明。
+
+
+回到之前的例子，$\emptyset \vdash P \to P$，句法证明过程如下：
 \begin{tightenum}
- \item $ P \to ((P \to P) \to P)$ ������ 1��
- \item $(P \to ((P \to P) \to P)) \to ((P \to (P \to P)) \to (P \to P))$ ������ 2��
- \item $((P \to (P \to P)) \to (P \to P))$ ��1��2��MP����
- \item  $P \to (P \to P)$ ������ 1��
- \item  $P \to P$����4��3��MP����
+ \item $ P \to ((P \to P) \to P)$ （公理 1）
+ \item $(P \to ((P \to P) \to P)) \to ((P \to (P \to P)) \to (P \to P))$ （公理 2）
+ \item $((P \to (P \to P)) \to (P \to P))$ （1，2，MP规则）
+ \item  $P \to (P \to P)$ （公理 1）
+ \item  $P \to P$，（4，3，MP规则）
 \end{tightenum}
 
-������ϵͳ�У����Ҫ˵��$\emptyset \models P \to P$(�����ǿռ��������У�����˵���������),
-ֻ��Ҫ˵���������� $P$ Ϊ��� $P$ Ϊ�ٵ�����£�����ʵ���̺����ӵ�������򣨲ο������������Ƕ��ܵõ�$P \to P$Ϊ�档��ˣ�����˵�����ʽ�ǿռ��������У�Ҳ�������棩��
+在语义系统中，如果要说明$\emptyset \models P \to P$(即，是空集的语义后承，或者说，是永真的),
+只需要说明，由于在 $P$ 为真和 $P$ 为假的情况下，根据实质蕴含算子的语义规则（参考上述），我们都能得到$P \to P$为真。因此，我们说这个公式是空集的语义后承（也就是永真）。
 
 
-���߿��ܻᷢ�֣�һЩ�����߼������ײ�û���ϸ�����$\vdash$��$\models$������ֻ��$\Rightarrow$�ȷ��ű�ʾ``����"֮��ĸ�����ھ����߼���û�д����⣬������ܿɿ��Ժ��걸�Եĸ��
+读者可能会发现，一些讲解逻辑的文献并没有严格区分$\vdash$和$\models$，甚至只用$\Rightarrow$等符号表示``推演"之类的概念。这在经典逻辑中没有大问题，下面介绍可靠性和完备性的概念。
 
 
-\begin{defn}��\textbf{�ɿ���}��Soundness��
+\begin{defn}（\textbf{可靠性}，Soundness）
 
-�ɿ�����ָ�����$\vdash P$����ô$\models P$�������ǿ�֤�Ķ���ΪΪ���
-
-\end{defn}
-
-
-
-\begin{defn}��\textbf{�걸��}��Compleness��
-
-�걸����ָ�����$\models P$����ô$\vdash P$��������Ϊ��Ĺ�ʽ���ǿ�֤�ģ�
+可靠性是指：如果$\vdash P$，那么$\models P$，即凡是可证的都是为为真的
 
 \end{defn}
 
 
-\begin{thm}�������߼��Ŀɿ��Ժ��걸�ԣ�
 
-�����߼��ǿɿ����걸�ġ�
+\begin{defn}（\textbf{完备性}，Compleness）
+
+完备性是指：如果$\models P$，那么$\vdash P$，即凡是为真的公式都是可证的；
+
+\end{defn}
+
+
+\begin{thm}（命题逻辑的可靠性和完备性）
+
+命题逻辑是可靠且完备的。
 \end{thm}
 
 \begin{rem}
 
-�е����׿��ܻ���ǿ�����걸�ԡ��ɿ��ԡ�ǿ�걸����ָ�����$\Sigma \models P$����ô$\Sigma \vdash P$��ǿ�ɿ�����ָ�����$\Sigma \vdash P$����ô$\Sigma \models P$�����ɿ����걸��������Ŀɿ����걸����ͬ��
+有的文献可能会提强、弱完备性、可靠性。强完备性是指：如果$\Sigma \models P$，那么$\Sigma \vdash P$，强可靠性是指：如果$\Sigma \vdash P$，那么$\Sigma \models P$，弱可靠、完备性与上面的可靠、完备性相同。
 \end{rem}
 
 
-����ƪ�����ޣ����ǲ��ڴ�֤����
+由于篇幅有限，我们不在此证明。
 
 
-TODO:����CHͬ������delimited/undelimited continuation�Ĺ�ϵ���ɼ�lectures note on curry howard isomorphism. ����㲻��д�Ļ����Ը�����д
+TODO:加入CH同构下与delimited/undelimited continuation的关系，可见lectures note on curry howard isomorphism. 如果你不想写的话可以给我来写
