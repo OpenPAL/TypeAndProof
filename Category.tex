@@ -37,6 +37,7 @@
     \[ F\ (g \circ f) = F\ g \circ F\ f\]
     \[ F\ id_{A} = id_{F\ A}\]
 \end{itemize}
+\end{defn}
 
 
 \subsection{伴随性}
@@ -52,6 +53,8 @@ G\ A  \ar[r]^{G\ f} & G\ B
 若对于所有的 $A \in Ob(\mathcal{C})$，$t_A$ 皆为同构，那么 $t$ 就被称为一个自然同构 (natural isomorphism)。
 \[ t : F \overset{\cong}\longrightarrow G \]\\
 
+\end{defn}
+
 伴随性可以理解为 Galois Connection 在范畴论之下的抽象。\\
 
 \subsubsection{Galois Connection}
@@ -60,13 +63,16 @@ G\ A  \ar[r]^{G\ f} & G\ B
 考虑 $g : Q \rightarrow P$ 为两个偏序集之间的单调映射，对于 $x \in P$，$x$ 的 \textbf{$g$-逼近} 为一个元素 $y \in Q$，使得 $x \le g(y)$。
 $x$ 的 \textbf{最佳$g$-逼近} 为 $y \in Q$，使得
 \[ x \le g(y) \wedge \forall z \in Q . (x \le g(z) \Rightarrow y \le z) \]
+\end{defn}
 
 \begin{defn} (\textbf{Galois Connection})
 若存在 $f : P \rightarrow Q$，使得 
 \[ \forall x \in P, y \in Q, x \le g(y) \Longleftrightarrow f(x) \le y \]
 则 $f$ 为 $g$ 的\textbf{左伴随(left adjoint)}，$g$ 为 $f$ 的\textbf{右伴随(right adjoint)}。
+\end{defn}
 
 \begin{thm} $g : Q \rightarrow P$ 为两个偏序集之间的单调映射，若存在 $f : P \rightarrow Q$，使得对于任意 $x \in P$ 存在\textbf{最佳$g$-逼近} $f(x)$，则 $f$ 与 $g$ 之间存在 Galois Connection。\\
+\end{thm}
 
 证明：
 根据定义构造 $f(x) := \min \{\ y \in Q\ |\ x \le g(y)\ \}$
@@ -87,6 +93,7 @@ $x$ 的 \textbf{最佳$g$-逼近} 为 $y \in Q$，使得
 \[ \theta_{A,B} : \mathcal{C}(A,G(B)) \overset{\cong}\longrightarrow \mathcal{D}(F(A),B)\]
 则 $F$ 为 \text{左伴随}，$G$ 为 \text{右伴随}，记为 $(F \dashv G).f$
 
+\end{defn}
 
 \begin{defn}（笛卡尔闭范畴，CCC）
 
