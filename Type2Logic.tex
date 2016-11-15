@@ -1,20 +1,20 @@
-\section{´ÓÀàĞÍµ½Âß¼­}
+\section{ä»ç±»å‹åˆ°é€»è¾‘}
 
-±¾ÎÄÖ»½éÉÜ¼òµ¥ÀàĞÍ$\lambda$ÑİËã(STLC)µÄCurry-HowardÍ¬¹¹¡£ÔÚºóĞø·¢Õ¹ÖĞ£¬ÑĞ¾¿ÈËÔ±Â½ĞøÌá³öÁËSystem F£¬¹¹ÔìÑİËãµÈ
+æœ¬æ–‡åªä»‹ç»ç®€å•ç±»å‹$\lambda$æ¼”ç®—(STLC)çš„Curry-HowardåŒæ„ã€‚åœ¨åç»­å‘å±•ä¸­ï¼Œç ”ç©¶äººå‘˜é™†ç»­æå‡ºäº†System Fï¼Œæ„é€ æ¼”ç®—ç­‰
 
-\subsection{»Ø¹Ë}
+\subsection{å›é¡¾}
 
-ÎÒÃÇÖØĞÂÊáÀíÒ»ÏÂ$\lambda$ÑİËãÏà¹ØÄÚÈİ£¬Ê×ÏÈÊÇÎŞÀàĞÍ$\lambda$ÑİËã¡£
+æˆ‘ä»¬é‡æ–°æ¢³ç†ä¸€ä¸‹$\lambda$æ¼”ç®—ç›¸å…³å†…å®¹ï¼Œé¦–å…ˆæ˜¯æ— ç±»å‹$\lambda$æ¼”ç®—ã€‚
 
 $$E, F ::= x \ | \ \lambda x.E \ | \ (E F) \ | \ ...$$
 
-È»ºóÊÇ¼òµ¥ÀàĞÍ$\lambda$ÑİËã¡£×¢Òâ£¬ÎªÁË±íÊö·½±ã£¬±¾½Ú²ÉÓÃºÍÇ°ÎÄÂÔÓĞ²»Í¬µÄ¼Ç·¨
+ç„¶åæ˜¯ç®€å•ç±»å‹$\lambda$æ¼”ç®—ã€‚æ³¨æ„ï¼Œä¸ºäº†è¡¨è¿°æ–¹ä¾¿ï¼Œæœ¬èŠ‚é‡‡ç”¨å’Œå‰æ–‡ç•¥æœ‰ä¸åŒçš„è®°æ³•
 
 $$\sigma, \tau ::= \beta \ | \ \sigma \to \tau$$
 
 $$E, F ::= x \ | \ \lambda x : \sigma . E \ | \ E F \ | \ ...$$
 
-¶¨ĞÍ¹æÔòÈçÏÂ£º
+å®šå‹è§„åˆ™å¦‚ä¸‹ï¼š
 
 \begin{prooftree}
 \AxiomC{$x : \sigma \in \Gamma$}
@@ -40,7 +40,7 @@ $$E, F ::= x \ | \ \lambda x : \sigma . E \ | \ E F \ | \ ...$$
 \end{prooftree}
 
 
-\subsection{$\lambda$ Cube¸ÅÊö}
+\subsection{$\lambda$ Cubeæ¦‚è¿°}
 
 
 
@@ -71,9 +71,9 @@ $$K ::= \star \ | \ \Box \ | \ K \to K$$
 $$T, U ::= V \ | \ S \ | \ T U \ | \ \lambda V : T.U \ | \ \Pi V : T.U$$
 
 \begin{itemize}
-  \item Type polymorphism£¨ÏîÒÀÀµÓÚÓëÀàĞÍ£¬$\Box \to \star$£©£¬ÈçSystem F£¬ÓÉGirardºÍReynoldsÌá³ö¡£
-  \item Type constructors£¨ÀàĞÍÒÀÀµÓÚÀàĞÍ£¬$\Box \to \Box$£©
-  \item Dependent types£¨ÀàĞÍÒÀÀµÓÚÏî£¬$\star \to \Box$£©
+  \item Type polymorphismï¼ˆé¡¹ä¾èµ–äºä¸ç±»å‹ï¼Œ$\Box \to \star$ï¼‰ï¼Œå¦‚System Fï¼Œç”±Girardå’ŒReynoldsæå‡ºã€‚
+  \item Type constructorsï¼ˆç±»å‹ä¾èµ–äºç±»å‹ï¼Œ$\Box \to \Box$ï¼‰
+  \item Dependent typesï¼ˆç±»å‹ä¾èµ–äºé¡¹ï¼Œ$\star \to \Box$ï¼‰
 \end{itemize}
 
 
@@ -83,7 +83,7 @@ $$T, U ::= V \ | \ S \ | \ T U \ | \ \lambda V : T.U \ | \ \Pi V : T.U$$
 \caption{Eight systems}
 \begin{tabular}{|c|c|c|}
 \hline
-ÀàĞÍÏµÍ³                            & ¹ØÏµ                                                              & Àı                          \\ \hline
+ç±»å‹ç³»ç»Ÿ                            & å…³ç³»                                                              & ä¾‹                          \\ \hline
 $\lambda_{\to}$                 & $\star \to \star$                                               & STLC                       \\ \hline
 $\lambda_2$                     & $\star \to \star, \Box \to \star$                               & System F                   \\ \hline
 $\lambda _{\underline \omega}$  & $\star \to \star, \Box \to \Box$                                & Weak $\lambda_{\omega}$    \\ \hline
@@ -96,14 +96,14 @@ $\lambda P_{\omega}$            & $\star \to \star, \Box \to \star, \star \to \B
 \end{table}
 
 
-\subsection{ÒÀÀµÀàĞÍ}
+\subsection{ä¾èµ–ç±»å‹}
 
-\subsection{¹éÄÉ¹¹ÔìÑİËãºÍCoq}
-
-
+\subsection{å½’çº³æ„é€ æ¼”ç®—å’ŒCoq}
 
 
-\subsection{ÓïÒåÒâÒåÏÂµÄÍ¬¹¹}
+
+
+\subsection{è¯­ä¹‰æ„ä¹‰ä¸‹çš„åŒæ„}
 
 \begin{table}[!htb]
 \centering
