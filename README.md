@@ -1,12 +1,8 @@
-
-
-##Type and proof
+## Type and proof
 
 This is the latex source of Type and proof, a short article about logic, type system, lambda calculus, and curry howard isomorphism.
 
 There may be some mistakes and it is not completed yet. Issues and pull requests are welcomed! 
-
-
 
 **TODO** 
 
@@ -42,3 +38,14 @@ There may be some mistakes and it is not completed yet. Issues and pull requests
 [4]: https://github.com/txyyss
 [5]: https://github.com/dramforever
 [6]: https://github.com/izgzhen
+
+## How to publish the PDF
+
+https://openpal.github.io/TypeAndProof/ is where we publish. Here are several steps:
+
+1. Generate the PDF file from source
+2. Clone another copy of this repo, named like `TypeAndProof-www`
+3. In that new repo, check out into the `gh-pages` branch
+4. Copy the new version of PDF here
+5. `git add --all; git commit -m "Update PDF"`
+6. Make a PR or something to that particular branch
