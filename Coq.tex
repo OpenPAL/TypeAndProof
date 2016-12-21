@@ -1,7 +1,7 @@
 \section{Coq入门}
 
 \subsection{简述}
-Coq是一个基于Calculus of Construction的扩展的Proof Assistant。
+Coq是一个基于Calculus of Constructions的扩展的Proof Assistant。
 
 Coq的背后的原理加入的扩展有：
 
@@ -9,7 +9,7 @@ Coq的背后的原理加入的扩展有：
 
 2：加入了Inductive，CoInductive data type
 
-3: 为了一致性，加入了Universe。也就是说，Type : Type在Coq种不成立，成立的是Type 0 : Type 1, Type 1 : Type 2, ... (有兴趣的读者可以试试看在Coq种开启-type-in-type使得Type : Type后证明矛盾)
+3: 为了一致性，加入了Universe。也就是说，Type : Type在Coq中不成立，成立的是Type 0 : Type 1, Type 1 : Type 2, ... (有兴趣的读者可以试试看在Coq中开启-type-in-type使得Type : Type后证明矛盾)
 
 \subsection{例子}
 Stay as close to propositional logic/ higher order logic as possible.
@@ -27,7 +27,8 @@ tauto, first order, meaning of formal verification, why tactic is OK
 LCF approach
 Help user. "Dialog like" property
 
-\subsection{其他教程}
+\subsection{Coq的ML扩展}
+Coq提供了扩展机制，方便开发者使用Coq的开发语言OCaml为Coq书写证明插件。
 
 \begin{itemize}
     \item \emph{Software Foundations} by Benjamin C. Pierce et al.
@@ -36,7 +37,10 @@ Help user. "Dialog like" property
     \item \emph{Programs and Proofs - Mechanizing Mathematics with Dependent Types} by Ilya Sergey.
           \href{http://ilyasergey.net/pnp}{Homepage}\\
           本书亮点是对 ssreflect 用法有一定介绍。同样有练习，但是相对较少。
+    \item \emph{CoqArt} by
+          \href{https://www.labri.fr/perso/casteran/CoqArt/}\\ Yves Bertot & Pierre Castéran
+          非常详尽地介绍了Coq的理论与使用，并且在主页上有课后习题答案，答案也随着Coq版本更新。
     \item \emph{Certified Programming with Dependent Types} by Adam Chlipala.
           \href{http://adam.chlipala.net/cpdt/}{Homepage}\\
-          老司机必备。 % FIXME(izgzhen): Why?
+          老司机必备。介绍了一些Coq的高级玩法，比如CoInductive的应用、使用Ltac来自动化证明等。
 \end{itemize}
