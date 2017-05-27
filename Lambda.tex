@@ -24,7 +24,7 @@ $\lambda$项($\lambda$ terms，或者$\lambda$表达式)的语法：
 
 $$M, N ::= x \ | \ M N \ | \ \lambda x^A . M \ | \ \langle M, M \rangle \ | \ \pi_1 M \ | \ \pi_2 M \ | \ \star \ | \ \square_{A} M$$
 
-其中，$\langle M, M \rangle$表示一对$\lambda$项，$\pi_i M$是一个``投射"(projection)，定义为：$\pi_i \langle M_1, M_2 \rangle = M_i$。$\star$表示类型``1"的元素（只有一个）。 $\lambda x^A. M$表示$x$有类型$A$。$\square_{A} M$ 是一个类型转换，把具有 $0$ 类型的元素 $M$ 转换成 $A$。实际上除了 $\lambda x^0. M$ 外我们无法构造出来一个具有 $0$ 类型的元素，后面我们可以看到，这个类型转换在 CH 同构中有重要的作用。
+其中，$\langle M, M \rangle$表示一对$\lambda$项，$\pi_i M$是一个``投射"(projection)，定义为：$\pi_i \langle M_1, M_2 \rangle = M_i$。$\star$表示类型``1"的元素（只有一个）。 $\lambda x^A. M$表示$x$有类型$A$。$\square_{A} M$ 是一个类型转换，把具有 $0$ 类型的元素 $M$ 转换成 $A$。实际上除了 $\lambda x^0. M$ 里的 $x$ 外我们无法构造出来一个具有 $0$ 类型的元素，后面我们可以看到，这个类型转换在 CH 同构中有重要的作用。
 
 \begin{rem}
 
