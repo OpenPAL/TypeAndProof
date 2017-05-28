@@ -25,19 +25,7 @@ There may be some mistakes and it is not completed yet. Issues and pull requests
 
 **Contributors**
 
-- [rainoftime] [1] 
-- [marisa] [2]
-- [TxmszLou] [3]
-- [txyyss] [4]
-- [dramforever] [5]
-- [izgzhen] [6]
-
-[1]: https://github.com/Loveice
-[2]: https://github.com/MarisaKirisame
-[3]: https://github.com/TxmszLou
-[4]: https://github.com/txyyss
-[5]: https://github.com/dramforever
-[6]: https://github.com/izgzhen
+https://github.com/OpenPAL/TypeAndProof/graphs/contributors
 
 ## How to publish the PDF
 
