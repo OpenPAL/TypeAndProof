@@ -1,6 +1,6 @@
 \section{直觉主义命题逻辑}
 
-直觉主义逻辑又称构造性逻辑，产生于第三次数学危机之后。直觉主义者认为，集合论悖论的出现提醒我们必须根据可信性的要求对整个数学作全面的审查。什么样的概念和方法是可信的呢？他们提出的口号是”存在必须被构造“，就是说，所有的数学概念和方法都必须是构造性的，能够按照可操作的固定的方法，在有限步之内定义和实现。
+直觉主义逻辑又称构造性逻辑，产生于第三次数学危机之后。直觉主义者认为，集合论悖论的出现提醒我们必须根据可信性的要求对整个数学作全面的审查。什么样的概念和方法是可信的呢？他们提出的口号是``存在必须被构造''，就是说，所有的数学概念和方法都必须是构造性的，能够按照可操作的固定的方法，在有限步之内定义和实现。
 
 
 在经典逻辑中，命题的解释是它断言的某种性质的真假意义，即命题的真值；而在直觉主义逻辑中，命题的解释是它断言的某种性质的可构造性。对于公式$A$，$A$的直观含义是``$A$是可构造的''，因此``证明$A$''意味着``构造$A$''。
@@ -13,18 +13,16 @@
 
 \subsection{语法}
 
-本节采用直觉主义逻辑形式系统中，有三个逻辑连接词$\land$，$\to$和$\top$。$\alpha$表示原子命题，$A, B...$是通过语法规则生成的公式。
+本节采用直觉主义逻辑形式系统中，有四个逻辑连接词$\land$，$\to$，$\top$和$\bot$。$\alpha$表示原子命题，$A, B...$是通过语法规则生成的公式。
 
-$$A, B ::= \alpha \ | \ A \to B \ | \ A \land B \ | \ \top$$
-
-
+$$A, B ::= \alpha \ | \ A \to B \ | \ A \land B \ | \ \top \ | \ \bot$$
 
 
 \subsection{BHK语义}
 
-公式在直觉主义逻辑中是有效（valid）的，当前仅当它对于任何Heting代数上的任何赋值总得到1
+公式在直觉主义逻辑中是有效（valid）的，当前仅当它对于任何Heyting代数上的任何赋值总得到$1$。
 
-本节重点关注证明系统，语义部分待补充。。
+本节重点关注证明系统，语义部分待补充。
 
 
 
@@ -45,9 +43,11 @@ $$A, B ::= \alpha \ | \ A \to B \ | \ A \land B \ | \ \top$$
 1. \textbf{公理}：从假设$A$出发，可以证明$A$。写在规则右边的$x$表示``名"为$x$的假设被使用了。
 
 \begin{prooftree}
-  \AxiomC{$[x:A]$}
+  \AxiomC{}
   \noLine
-  \LeftLabel{$(ax)$}   \RightLabel{$\quad x$}
+  \UnaryInfC{$[x:A]$}
+  \LeftLabel{$(ax)$}
+  \RightLabel{$\quad x$}
   \UnaryInfC{$A$}
 
 
@@ -92,7 +92,6 @@ $$A, B ::= \alpha \ | \ A \to B \ | \ A \land B \ | \ \top$$
 
 4. \textbf{$\top$引入}：不需要任何假设就能得到$\top$。
 
-
 \begin{prooftree}
 \AxiomC{}
 \LeftLabel{$(\top I)$}
@@ -100,7 +99,17 @@ $$A, B ::= \alpha \ | \ A \to B \ | \ A \land B \ | \ \top$$
 
 \end{prooftree}
 
-5. \textbf{$\to$引入}：如果基于假设$[\Gamma, x:A]$可以证明$B$，则基于假设$\Gamma$可以证明$A \to B$。要注意的是，$x :A$ 并从假设中``消耗"了。为表强调我们在规则后写上$x$（$A$的标记）。
+5. \textbf{$\bot$消去}：从$\bot$可以证明一切。
+
+\begin{prooftree}
+\AxiomC{$[\Gamma]$}
+\noLine
+\UnaryInfC{$\bot$}
+\LeftLabel{$(\bot E)$}
+\UnaryInfC{$A$}
+\end{prooftree}
+
+6. \textbf{$\to$引入}：如果基于假设$[\Gamma, x:A]$可以证明$B$，则基于假设$\Gamma$可以证明$A \to B$。要注意的是，$x :A$ 从假设中``消耗"了。为表强调我们在规则后写上$x$（$A$的标记）。
 
 \begin{prooftree}
 \AxiomC{$[\Gamma, x:A]$}
@@ -112,7 +121,7 @@ $$A, B ::= \alpha \ | \ A \to B \ | \ A \land B \ | \ \top$$
 \end{prooftree}
 
 
-6. \textbf{$\to$消去}：（等价于Hilbert系统的MP规则）
+7. \textbf{$\to$消去}：（等价于Hilbert系统的MP规则）
 
 
 \begin{prooftree}
@@ -135,7 +144,7 @@ $$A, B ::= \alpha \ | \ A \to B \ | \ A \land B \ | \ \top$$
 
 
 在这种形式中，演绎规则不是导出一个个公式，而是使用了断言（judgment）的形式。它表示公式$B$是假设集$A_1,...,A_n$的后承。
-$$x_1:A,...,x_n:A_n \vdash B$$。这种写法可能会导致证明树有大量``$\Gamma$''而显得冗余，但是实际上更直观。
+$$x_1:A,...,x_n:A_n \vdash B$$ 这种写法可能会导致证明树有大量``$\Gamma$''而显得冗余，但是实际上更直观。
 
 
 
@@ -149,9 +158,6 @@ $$x_1:A,...,x_n:A_n \vdash B$$。这种写法可能会导致证明树有大量``
 \UnaryInfC{$\Gamma, x:A \vdash A$}
 
 \end{prooftree}
-
-
-
 
 2. \textbf{$\land$引入}
 
@@ -178,7 +184,6 @@ $$x_1:A,...,x_n:A_n \vdash B$$。这种写法可能会导致证明树有大量``
 \UnaryInfC{$\Gamma \vdash B$}
 \end{prooftree}
 
-
 4. \textbf{$\top$引入}
 
 \begin{prooftree}
@@ -187,7 +192,15 @@ $$x_1:A,...,x_n:A_n \vdash B$$。这种写法可能会导致证明树有大量``
 \UnaryInfC{$\Gamma \vdash \top$}
 \end{prooftree}
 
-5. \textbf{$\to$引入}
+5. \textbf{$\bot$消去}
+
+\begin{prooftree}
+\AxiomC{$\Gamma \vdash \bot$}
+\LeftLabel{$(\bot E)$}
+\UnaryInfC{$\Gamma \vdash A$}
+\end{prooftree}
+
+6. \textbf{$\to$引入}
 
 \begin{prooftree}
 \AxiomC{$\Gamma , x:A \vdash B $}
@@ -195,7 +208,7 @@ $$x_1:A,...,x_n:A_n \vdash B$$。这种写法可能会导致证明树有大量``
 \UnaryInfC{$\Gamma \vdash A \to B$}
 \end{prooftree}
 
-6. \textbf{$\to$消去}
+7. \textbf{$\to$消去}
 
 \begin{prooftree}
 \AxiomC{$\Gamma \vdash A \to B $}

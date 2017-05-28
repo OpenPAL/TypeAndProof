@@ -336,7 +336,7 @@ Hilbert系统存在很多缺点：证明过程冗长、不符合实际推理的�
 
 $$A, B ::= A \to B \ | \ A \land B \ | \ A \lor B \ | \ \neg A \ | \ \bot$$
 
-\textbf{$\land$引入}（合取引入）：如果$A$和$B$是可证的，那么$A \land B$是可证的。 
+\textbf{$\land$引入}（合取引入）：如果$A$和$B$是可证的，那么$A \land B$是可证的。
 
 \begin{prooftree}
   \AxiomC{$A$}
@@ -346,7 +346,7 @@ $$A, B ::= A \to B \ | \ A \land B \ | \ A \lor B \ | \ \neg A \ | \ \bot$$
 \end{prooftree}
 
 
-\textbf{$\land$消去}（合取消去）：如果$A \land B$是可证的，那么$A$和$B$都是可证的。 
+\textbf{$\land$消去}（合取消去）：如果$A \land B$是可证的，那么$A$和$B$都是可证的。
 
 \begin{prooftree}
   \AxiomC{$A \land B$}
@@ -399,7 +399,7 @@ $$A, B ::= A \to B \ | \ A \land B \ | \ A \lor B \ | \ \neg A \ | \ \bot$$
 \AxiomC{[$A$]}
 \noLine
 \UnaryInfC{$B$}
-\LeftLabel{$(\to I)$}  
+\LeftLabel{$(\to I)$}
 \UnaryInfC{$A \to B$}
 
 \end{prooftree}
@@ -469,11 +469,11 @@ $$ A \land B \vdash_{\mathrm{ND}} B \land A$$
    \AxiomC{$A \land B$}
    \LeftLabel{$(\land E)$}
    \UnaryInfC{$B$}
-   
+
    \AxiomC{$A \land B$}
    \LeftLabel{$(\land E)$}
    \UnaryInfC{$A$}
-   
+
    \LeftLabel{$(\land I)$}
    \BinaryInfC{$B \land A$}
 
@@ -494,14 +494,14 @@ $$ \vdash_{\mathrm{ND}} A \to \neg \neg A$$
   \AxiomC{$[\neg A]^1$}
   \LeftLabel{$(\neg E)$}
   \BinaryInfC{$\bot$}
-  
+
   \LeftLabel{$(\neg I)$} \RightLabel{1}
   \UnaryInfC{$\neg \neg A$}
-  
+
 
   \LeftLabel{$(\to I)$} \RightLabel{2}
   \UnaryInfC{$A \to \neg \neg A$}
-  
+
 
 \end{prooftree}
 
@@ -509,7 +509,7 @@ $$ \vdash_{\mathrm{ND}} A \to \neg \neg A$$
 \end{exmp}
 
 
-\begin{exerc} 
+\begin{exerc}
 
 (1) $A \to B \vdash_{\mathrm{ND}} \neg B \to \neg A$
 
@@ -721,7 +721,7 @@ $$ \vdash_{\mathrm{ND}} A \to \neg \neg A$$
 
 
 
-\begin{defn}（\textbf{完备性}，Compleness）
+\begin{defn}（\textbf{完备性}，Completeness）
 
 完备性是指：如果$\models P$，那么$\vdash P$，即凡是为真的公式都是可证的；
 

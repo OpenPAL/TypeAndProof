@@ -1,18 +1,19 @@
 \section{简单类型$\lambda$演算}
 
-本节所采用的带类型$lambda$演算扩展主要参考自\emph{Lectures notes on the Lambda Calculus}, Peter Selinger。
+本节所采用的带类型$\lambda$演算扩展主要参考自\emph{Lectures notes on the Lambda Calculus}, Peter Selinger。
 
 \subsection{语法}
 
 类型的BNF规则如下：
 
-$$A, B ::= \iota \ | \ A \to B \ | \ A \times B  \ | \ 1$$
+$$A, B ::= \iota \ | \ A \to B \ | \ A \times B  \ | \ 1 \ | \ 0$$
 
 \begin{tightenum}
   \item 基础类型$\iota$代表integers, booleans等的类型；
   \item $A \to B$为从$A$到$B$的函数的类型；
-  \item $A \times B$是二元组$\langle x, y \rangle$ 的类型，其中$x$有类型$A$，$y$有类型$B$。
-  \item $1$表示只有一个元素的类型，类似程序语言中的``void"和``unit"。
+  \item $A \times B$是二元组$\langle x, y \rangle$ 的类型，其中$x$有类型$A$，$y$有类型$B$；
+  \item $1$表示只有一个元素的类型，类似程序语言中的``unit"，或者 Haskell 中的$()$类型；
+  \item $0$表示一个空类型，没有任何元素属于这个类型。
 \end{tightenum}
 
 
@@ -21,41 +22,48 @@ $$A, B ::= \iota \ | \ A \to B \ | \ A \times B  \ | \ 1$$
 
 $\lambda$项($\lambda$ terms，或者$\lambda$表达式)的语法：
 
-$$M, N ::= x \ | \ M N \ | \ \lambda x^A . M \ | \ \langle M, M \rangle \ | \ \pi_1 M \ | \ \pi_2 M \ | \ * $$
+$$M, N ::= x \ | \ M N \ | \ \lambda x^A . M \ | \ \langle M, M \rangle \ | \ \pi_1 M \ | \ \pi_2 M \ | \ \star \ | \ \square_{A} M$$
 
-其中，$\langle M, M \rangle$表示一对$\lambda$项，$\pi_i M$是一个``投射"(projection)，定义为：$\pi_i \langle M_1, M_2 \rangle = M_i$。$\star$表示类型``1"的元素（只有一个）。 $\lambda x^A. M$表示$x$有类型$A$。
+其中，$\langle M, M \rangle$表示一对$\lambda$项，$\pi_i M$是一个``投射"(projection)，定义为：$\pi_i \langle M_1, M_2 \rangle = M_i$。$\star$表示类型``1"的元素（只有一个）。 $\lambda x^A. M$表示$x$有类型$A$。$\square_{A} M$ 是一个类型转换，把具有 $0$ 类型的元素 $M$ 转换成 $A$。实际上除了 $\lambda x^0. M$ 里的 $x$ 外我们无法构造出来一个具有 $0$ 类型的元素，后面我们可以看到，这个类型转换在 CH 同构中有重要的作用。
 
 \begin{rem}
 
-很多文献中对$\lambda x^A. M$采用另一种写法$\lambda x:A. M$
+很多文献中对$\lambda x^A. M$采用另一种写法$\lambda x:A. M$。
 \end{rem}
 
 
 \begin{defn} （\textbf{自由变量}）
 
+  对一个 $\lambda$ 项 $P$，我们可以定义 $P$ 中\emph{自由变量}的集合
+  $\text{FV}(P)$ 如下：
+  \begin{tightenum}
+  \item $\text{FV}(\phi) = \{\phi\}$
+  \item $\text{FV}(\lambda\phi.M) = \text{FV}(M)\,\backslash\,\{\phi\}$\label{enum:fvforabs}
+  \item $\text{FV}(M\,N) = \text{FV}(M)\cup\text{FV}(N)$
+  \end{tightenum}
 
 \end{defn}
 
 \begin{defn}（\textbf{闭合}）
 
-一个$\lambda$项（表达式）是闭合的，如果它不包含自由变量
+一个$\lambda$项$P$（表达式）是闭合的，如果$\text{FV}(P)=\emptyset$。
+
 \end{defn}
 
 
 \subsection{类型}
 
-从程序语言的角度，类型系统(Type system)属于``静态语义"(static semantic)。下面给出简单类型$\lambda$演算的类型系统
+从程序语言的角度，类型系统(Type system)属于``静态语义"(static semantic)。下面给出简单类型$\lambda$演算的类型系统。
 
 \begin{defn}（\textbf{类型断言}，Typing judgement）
 
-又称类型指派，$x:A$：表示变量$x$有类型$A$；
+又称类型指派，$x:A$：表示变量$x$有类型$A$。
+
 \end{defn}
 
 \begin{defn}（\textbf{类型环境}， Typing environment）
 
 又称类型上下文， 一般用$\Gamma, \Delta,...$ 表示，指代形为$\Gamma = \{x_1:A_1,...,x_k:A_k \}$的类型断言集合，即：$x_1,...x_k$ 分别有类型$A_1,...,A_k$。
-
-
 
 \end{defn}
 
@@ -76,8 +84,9 @@ $$M, N ::= x \ | \ M N \ | \ \lambda x^A . M \ | \ \langle M, M \rangle \ | \ \p
 
 下面是简单类型$\lambda$演算的定型规则：
 \begin{tightenum}
-  \item $(var)$规则：假定$x$有类型$A$，则$x$有类型$A$。
-  \item $(app$规则：类型为$A \to B$的函数可以引用到类型$A$的参数上， 并产生类型$B$的结果
+  \item $(var)$规则：假定$x$有类型$A$，则$x$有类型$A$；
+  \item $(app)$规则：类型为$A \to B$的函数可以引用到类型$A$的参数上，并产生类型$B$的结果；
+  \item $(abs)$规则：假定$x$有类型$A$的假设下，$M$有类型$B$，则$\lambda x^A.M$有类型$A \to B$；
   \item 等等。
 \end{tightenum}
 
@@ -93,8 +102,10 @@ $$\frac {\Gamma, x:A \vdash M : B }
        {\Gamma \vdash \lambda x ^ A . M: A \to B} \ (abs)$$
 
 $$\frac {\Gamma \vdash M : A \ \ \ \ \Gamma \vdash N : B }
-       {\Gamma \vdash \langle M, N \rangle : A \times B} \ (pair) \ \ \ \ \
-\frac {} {\Gamma \vdash \star : 1} \ (\star)$$
+       {\Gamma \vdash \langle M, N \rangle : A \times B} \ (pair)$$
+       
+$$\frac {} {\Gamma \vdash \star : 1} \ (\star) \ \ \ \ \
+\frac {\Gamma \vdash M : 0} {\Gamma \vdash \square_{A} M : A} \ (\square) $$
 
 $$\frac {\Gamma \vdash M : A \times B }
        {\Gamma \vdash \pi_1 M : A} \ (\pi_1) \ \ \ \ \
@@ -139,23 +150,15 @@ $$\vdash \lambda x^{A \to A} . \lambda y^A . x(xy) : (A \to A) \to A \to A$$
 
 \end{defn}
 
-
 \begin{defn}（\textbf{类型推导}，Type inference）
 
 给定$\Gamma$和$M$，确定$A$。
 
 \end{defn}
 
-
-
 \begin{defn}（\textbf{良型的}，Well-typed）
 
-
-\end{defn}
-
-
-\begin{defn}（\textbf{类型可靠性}，Type soundness）
-
+给定$M$，若有类型$A$满足$\emptyset \vdash M : A$，则$M$为良型的。
 
 \end{defn}
 
@@ -171,7 +174,10 @@ $$\vdash \lambda x^{A \to A} . \lambda y^A . x(xy) : (A \to A) \to A \to A$$
   \item $((A \to A) \to B) \to B$
   \item $A \to (A \times B)$
   \item $(A \to C) \to C$
-
+  \item $0$
+  \item $1$
+  \item $1 \to 0$
+  \item $0 \to 1$
 \end{tightenum}
 
 我们先给出答案：
@@ -183,6 +189,10 @@ $$\vdash \lambda x^{A \to A} . \lambda y^A . x(xy) : (A \to A) \to A \to A$$
   \item $\lambda x^{(A \to A) \to B} . x(\lambda y^A . y)$
   \item 无法找到闭合表达式
   \item 无法找到闭合表达式
+  \item 无法找到闭合表达式
+  \item $\star$
+  \item 无法找到闭合表达式
+  \item $\lambda x^{0}. \star$ 或者 $\lambda x^{0}. \square_{1} x$
 \end{tightenum}
 \end{exmp}
 
@@ -190,14 +200,13 @@ $$\vdash \lambda x^{A \to A} . \lambda y^A . x(xy) : (A \to A) \to A \to A$$
 
 \begin{defn} （\textbf{类型居留问题}）
 
-给定类型，是否一定存在相应类型的闭合$\lambda$表达式。找到特定类型的
-$\lambda$表达式的问题称为类型居留问题。
+给定类型，是否一定存在相应类型的闭合$\lambda$表达式。找到特定类型的$\lambda$表达式的问题称为类型居留（type inhabitation）问题。
 
 \end{defn}
 
+从前面类型 $0$ 和 $1$ 的定义可以知道，$0$ 不是类型居留的，$1$ 只有一个值 $\star$ 具有该类型。
 
-
-类型居留问题揭示了类型和逻辑之间巧妙的联系。下面将类型表达式中的``$\times$"换成逻辑与符号``$\land$"，``$\to$"换成逻辑蕴涵符号`` $\to$"，可以获得以下逻辑公式：
+类型居留问题揭示了类型和逻辑之间巧妙的联系。下面将类型表达式中的``$\times$"换成逻辑与符号``$\land$"，``$\to$"换成逻辑蕴涵符号`` $\to$"，``$0$"换成``$\bot$"，``$1$"换成``$\top$"，可以获得以下逻辑公式：
 
 \begin{tightenum}
   \item $( A \land B) \to A$
@@ -207,17 +216,22 @@ $\lambda$表达式的问题称为类型居留问题。
   \item $((A \to A) \to B) \to B$
   \item $A \to (A \land B)$
   \item $(A \to C) \to C$
+  \item $\bot$
+  \item $\top$
+  \item $\top \to \bot$
+  \item $\bot \to \top$
 \end{tightenum}
 
 \begin{rem}
 有的文献为了方便区分，会用$\supset$或者$\Rightarrow$表示逻辑蕴涵，但是为了符合我们的通常印象且不失统一性，本文用$\to$表示逻辑蕴涵符号。尽管它和类型中的符号$\to$ 重复了，请读者根据上下文区分。
 \end{rem}
 
-实际上，1-5都是逻辑有效的（都是永真式，或者重言式），而6和7不是。
+实际上，1$\sim$5，9和11都是逻辑有效的（都是永真式，或者重言式），而6，7，8和10不是。
 后面我们会知道，给定类型，只有当它（通过以上方式）对应的逻辑公式有效时，才能找到相应的$\lambda$表达式！
 
 简单类型$\lambda$演算和逻辑的这种联系（或者对应）称为``Curry-Howard同构"。更准确地说，此处的``逻辑"指代直觉主义命题逻辑。 在后续的章节中我们将进一步阐述。
 
+需要注意的是，最后一个例子里我们给出了两种不同的程序具有同样的类型，实际上对应了两种不同的证明。后面我们也将会看到这一点。
 
 \subsection{正则性}
 
