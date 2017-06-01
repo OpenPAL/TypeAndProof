@@ -7,6 +7,7 @@ There may be some mistakes and it is not completed yet. Issues and pull requests
 **TODO** 
 
 - denotational semantic of UTLC and STLC
+- logical relation and its applications
 - C-H isomorphism under sequent calculus
 - type inference of STLC 
 - type checking VS. proof checking 
